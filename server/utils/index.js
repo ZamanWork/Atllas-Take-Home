@@ -1,9 +1,12 @@
-module.exports = (schema) => {
-  return (req,res, next, schema) => {
-    const { error, value } = schema.validate(req.body);
-    console.log("hereee", req.body, error, value)
-    if (error) {
-      res.send(error)
-    } else next();
+const agentSchema = require("../validators/agent.validator")
+
+const validateAgent = (req, res, next) => {
+  const { error, value } = agentSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
   }
-} 
+  req.validatedData = value;
+  next();
+};
+
+module.exports = validateAgent

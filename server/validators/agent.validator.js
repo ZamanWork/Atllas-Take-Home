@@ -1,13 +1,13 @@
 const Joi = require('joi')
 
 const agentSchema = Joi.object({
-  firstName: Joi.string().strict().required(),
-  lastName: Joi.string().strict().required(),
-  photoUrl: Joi.string().strict(),
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  photoUrl: Joi.string(),
   agentLicense: Joi.string().required(),
-  address: Joi.string().strict().required(),
+  address: Joi.string().required(),
   practiceAreas: Joi.string(),
-  aboutMe: Joi.string().strict().min(1).max(255),
+  aboutMe: Joi.string().min(1).max(255),
 })
 
 module.exports = agentSchema;

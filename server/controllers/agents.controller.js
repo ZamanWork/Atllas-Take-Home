@@ -1,13 +1,9 @@
 const { Agent } = require('../model');
 
 async function addAgent(req, res) {
-  try {
-    const newAgent = req.body;
-    const data = await Agent.create(newAgent);
-    res.send({message: "Successfully created an agent", agent: data});
-  } catch (error) {
-    res.send({message: error.message});
-  }
+  const newAgent = req.validatedData;
+  const data = await Agent.create(newAgent);
+  res.send({message: "Successfully created an agent", agent: data});
 }
 
 async function listAgents(req, res) {
