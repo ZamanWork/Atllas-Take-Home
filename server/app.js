@@ -1,11 +1,11 @@
 const express = require('express');
-const { Agent } = require('./model');
+const bodyParser = require('body-parser');
+const apiRoutes = require('./routes')
 
 const app = express();
 
-app.get('/agents', async (req, res, next) => {
-  const agents = await Agent.findAll();
-  return res.json(agents);
-});
+app.use(bodyParser.json({extendedUrl: true}))
+
+app.use('/', apiRoutes);
 
 module.exports = app;
