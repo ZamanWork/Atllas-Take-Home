@@ -10,4 +10,14 @@ const agentSchema = Joi.object({
   aboutMe: Joi.string().min(1).max(255),
 })
 
-module.exports = agentSchema;
+const updateAgentSchema = Joi.object({
+  firstName: Joi.string().not().empty(),
+  lastName: Joi.string().not().empty(),
+  photoUrl: Joi.string(),
+  agentLicense: Joi.string().not().empty(),
+  address: Joi.string().not().empty(),
+  practiceAreas: Joi.string(),
+  aboutMe: Joi.string().min(1).max(255),
+})
+
+module.exports = {agentSchema, updateAgentSchema};
