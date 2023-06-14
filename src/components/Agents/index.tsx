@@ -4,7 +4,7 @@ import { IAgent } from 'types/Agent';
 import axios from 'axios';
 import './Agents.css';
 import AgentList from './AgentsList/AgentList';
-import AgentForm from './AgentsForm/AgentForm';
+import AgentForm from './Form';
 
 
 const Agents: FC = () => {
@@ -33,7 +33,6 @@ const Agents: FC = () => {
           </div>
         </div>
       )}
-      
       <h1>List of All Agents</h1>
 
       <div className="d-flex" style={{ width: 500 }}>

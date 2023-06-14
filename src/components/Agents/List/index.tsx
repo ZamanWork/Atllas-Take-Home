@@ -1,5 +1,5 @@
 import React from 'react';
-import { IAgent } from '../../../types/Agent';
+import { IAgent } from 'types/Agent';
 
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
@@ -12,9 +12,8 @@ import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
-import AgentForm from '../AgentsForm/AgentForm';
+import AgentForm from '../Form';
 import ReviewsIcon from '@mui/icons-material/Reviews';
-
 
 interface AgentListProps {
   agents: (IAgent[]);
@@ -22,7 +21,6 @@ interface AgentListProps {
 
 const AgentList: React.FC<AgentListProps> = ({ agents }) => {
   const [showModal, setShowModal] = useState(false);
-
 
   const handleButtonClick = () => {
     setShowModal(true);
@@ -90,12 +88,12 @@ const AgentList: React.FC<AgentListProps> = ({ agents }) => {
                   {agent.practiceAreas}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <Button variant="outlined"  onClick={handleButtonClick} startIcon={<VisibilitySharpIcon />}>
+                  <Button variant="outlined" onClick={handleButtonClick} startIcon={<VisibilitySharpIcon />}>
                     Show
                   </Button>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <Button variant="outlined"  onClick={handleButtonClick} startIcon={<ReviewsIcon />}>
+                  <Button variant="outlined" onClick={handleButtonClick} startIcon={<ReviewsIcon />}>
                     Reviews
                   </Button>
                 </StyledTableCell>
