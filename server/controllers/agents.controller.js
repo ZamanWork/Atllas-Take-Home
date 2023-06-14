@@ -1,5 +1,6 @@
 const { Agent } = require('../models/agent');
 const Review = require('../models/review');
+const { Op } = require('sequelize');
 
 async function addAgent(req, res) {
   const newAgent = req.validatedData;
@@ -26,15 +27,32 @@ async function listAgents(req, res) {
   });
 }
 
-async function getAgent(req, res) {
-  const agentId = req.params.id;
+async function searchAgents(req, res) {
+  const searchQuery = req.query.search;
   try {
-    const agent = await Agent.findOne({
-      where: { id: agentId },
+    const agents = await Agent.findAll({
+      where: {
+        [Op.or]: [
+          {
+            firstName: {
+              [Op.like]: `%${searchQuery}%`,
+            },
+          },
+          {
+            lastName: {
+              [Op.like]: `%${searchQuery}%`,
+            },
+          },
+          {
+            agentLicense: {
+              [Op.like]: `%${searchQuery}%`,
+            },
+          }
+        ],
+      },
     });
-
-    if (agent) {
-      res.status(200).send(agent);
+    if (agents) {
+      res.status(200).send(agents);
     } else {
       res.status(404).send({message: "Agent not found"});
     }
@@ -77,11 +95,10 @@ async function deleteAgent(req, res) {
   }
 }
 
-
 module.exports = {
   addAgent,
   listAgents,
-  getAgent,
+  searchAgents,
   updateAgent,
   deleteAgent
 };
