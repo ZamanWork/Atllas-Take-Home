@@ -19,7 +19,7 @@ interface AgentListProps {
   agents: (IAgent[]);
 }
 
-const AgentList: React.FC<AgentListProps> = ({ agents }) => {
+const List: React.FC<AgentListProps> = ({ agents }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleButtonClick = () => {
@@ -106,4 +106,4 @@ const AgentList: React.FC<AgentListProps> = ({ agents }) => {
   );
 };
 
-export default AgentList;
+export default List;
