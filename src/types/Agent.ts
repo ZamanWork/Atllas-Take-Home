@@ -3,7 +3,7 @@ export interface IAgent {
   firstName: string;
   lastName: string;
   photoUrl: string;
-  agentLicence: string;
+  agentLicense: string;
   address: string;
   practiceAreas: string[];
   aboutMe: string;

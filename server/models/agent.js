@@ -25,7 +25,7 @@ Agent.init(
     photoUrl: {
       type: Sequelize.STRING
     },
-    agentLicence: {
+    agentLicense: {
       type: Sequelize.STRING,
       allowNull: false
     },
