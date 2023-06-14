@@ -3,14 +3,13 @@ import { useState, useEffect } from 'react';
 import { IAgent } from 'types/Agent';
 import axios from 'axios';
 import './Agents.css';
-import AgentList from './AgentsList/AgentList';
+import AgentList from './List';
 import AgentForm from './Form';
 
 
 const Agents: FC = () => {
   const [agents, setAgents] = useState<IAgent[]>([]);
   const [showModal, setShowModal] = useState(false);
-
 
   const handleButtonClick = () => {
     setShowModal(true);
