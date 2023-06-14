@@ -1,10 +1,11 @@
 const { Agent } = require('../models/agent');
-const Review = require('../models/review');
-const { Op } = require('sequelize');
+const agentService = require('../DAO/agents.dao')
 
 async function addAgent(req, res) {
   const newAgent = req.validatedData;
-  const data = await Agent.create(newAgent);
+
+  const data = await agentService.createAgent(newAgent);
+
   res.send({message: "Successfully created an agent", agent: data});
 }
 
@@ -13,11 +14,8 @@ async function listAgents(req, res) {
   const limit = parseInt(req.query.limit) || 10;
   const offset = (page - 1) * limit;
   
-  const agents = await Agent.findAll({
-    include: Review,
-    offset,
-    limit,
-  });
+  const agents = await agentService.getAllAgents(offset, limit); 
+
   const totalPageCount = Math.ceil(await Agent.count()/limit);
   return res.status(200).send({
     agents,
@@ -30,27 +28,8 @@ async function listAgents(req, res) {
 async function searchAgents(req, res) {
   const searchQuery = req.query.search;
   try {
-    const agents = await Agent.findAll({
-      where: {
-        [Op.or]: [
-          {
-            firstName: {
-              [Op.like]: `%${searchQuery}%`,
-            },
-          },
-          {
-            lastName: {
-              [Op.like]: `%${searchQuery}%`,
-            },
-          },
-          {
-            agentLicense: {
-              [Op.like]: `%${searchQuery}%`,
-            },
-          }
-        ],
-      },
-    });
+    const agents = await agentService.findAgents(searchQuery); 
+
     if (agents) {
       res.status(200).send(agents);
     } else {
@@ -65,9 +44,7 @@ async function updateAgent(req, res) {
   const newAgent = req.body;
   const agentId = req.params.id;
   try {
-    const [affectedRows] = await Agent.update(newAgent, {
-      where: { id: agentId },
-    });
+    const [affectedRows] = await agentService.editAgent(newAgent, agentId);
 
     if (affectedRows > 0) {
       res.status(200).send({message: "Agent Updated Successfully"});
@@ -82,9 +59,8 @@ async function updateAgent(req, res) {
 async function deleteAgent(req, res) {
   const agentId = req.params.id;
   try {
-    const deletedAgent = await Agent.destroy({
-      where: { id: agentId },
-    });
+    const deletedAgent = await agentService.destroyAgent(agentId);
+    
     if (deletedAgent >  0) {
       res.status(200).send({message: "Agent Deleted Successfully"});
     } else {
