@@ -27,7 +27,8 @@ Agent.init(
     },
     agentLicense: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     address: {
       type: Sequelize.STRING,
