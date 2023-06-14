@@ -1,15 +1,27 @@
-const { Agent } = require('../server/model')
-
-
+const { Agent } = require('../server/models/agent');
+const Review = require('../server/models/review');
 /* NOTE: THIS WILL DROP THE CURRENT DATABASE */
 seed();
-
 async function seed() {
   /* Create the table for the agents */
-  await Agent.sync({ force: true })
-
+  await Agent.sync({ force: true });
+  await Review.sync({ force: true });
   /* Insert the data */
   await Promise.all([
+    Agent.create({
+      firstName: 'Jordan',
+      lastName: 'McQueen',
+      agentLicence: '123321890',
+      address: '53 W 53rd St, New York, NY 10019, United States',
+      practiceAreas: ['New York'].join(','),
+      aboutMe: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum vitae sapien pellentesque habitant morbi tristique. Dui accumsan sit amet nulla facilisi morbi tempus. Fringilla urna porttitor rhoncus dolor purus non. Vitae et leo duis ut diam quam. Eget nunc scelerisque viverra mauris. Sed velit dignissim sodales ut eu. Vitae sapien pellentesque habitant morbi tristique senectus et netus. Vitae proin sagittis nisl rhoncus mattis. Pellentesque adipiscing commodo elit at imperdiet dui accumsan. Elementum facilisis leo vel fringilla est ullamcorper eget nulla. Nunc non blandit massa enim. Risus nec feugiat in fermentum posuere urna nec tincidunt praesent.'
+    }).then(agent => {
+      return Review.create({
+        rating: 4.5,
+        comment: 'Great agent!',
+        AgentId: agent.id,
+      });
+    }),
     Agent.create({
       firstName: 'Anton',
       lastName: 'Huot',
@@ -18,6 +30,12 @@ async function seed() {
       address: '908 Bel Air Rd, Los Angeles, CA 90077',
       practiceAreas: ['Los Angeles', 'San Diego', 'New York', 'Miami'].join(','),
       aboutMe: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum vitae sapien pellentesque habitant morbi tristique. Dui accumsan sit amet nulla facilisi morbi tempus. Fringilla urna porttitor rhoncus dolor purus non. Vitae et leo duis ut diam quam. Eget nunc scelerisque viverra mauris. Sed velit dignissim sodales ut eu. Vitae sapien pellentesque habitant morbi tristique senectus et netus. Vitae proin sagittis nisl rhoncus mattis. Pellentesque adipiscing commodo elit at imperdiet dui accumsan. Elementum facilisis leo vel fringilla est ullamcorper eget nulla. Nunc non blandit massa enim. Risus nec feugiat in fermentum posuere urna nec tincidunt praesent.'
+    }).then(agent => {
+      return Review.create({
+        rating: 4.5,
+        comment: 'Great agent!',
+        AgentId: agent.id,
+      });
     }),
     Agent.create({
       firstName: 'Matthew',
@@ -27,6 +45,12 @@ async function seed() {
       address: '308 Vista De La Playa, La Jolla, CA 92037',
       practiceAreas: ['San Diego'].join(','),
       aboutMe: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum vitae sapien pellentesque habitant morbi tristique. Dui accumsan sit amet nulla facilisi morbi tempus. Fringilla urna porttitor rhoncus dolor purus non. Vitae et leo duis ut diam quam. Eget nunc scelerisque viverra mauris. Sed velit dignissim sodales ut eu. Vitae sapien pellentesque habitant morbi tristique senectus et netus. Vitae proin sagittis nisl rhoncus mattis. Pellentesque adipiscing commodo elit at imperdiet dui accumsan. Elementum facilisis leo vel fringilla est ullamcorper eget nulla. Nunc non blandit massa enim. Risus nec feugiat in fermentum posuere urna nec tincidunt praesent.'
+    }).then(agent => {
+      return Review.create({
+        rating: 4.5,
+        comment: 'Great agent!',
+        AgentId: agent.id,
+      });
     }),
     Agent.create({
       firstName: 'Cayton',
@@ -36,14 +60,12 @@ async function seed() {
       address: '6800 Fisher Is Unit 6802 PH-2, Miami Beach, FL 33109',
       practiceAreas: ['Miami', 'New York'].join(','),
       aboutMe: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum vitae sapien pellentesque habitant morbi tristique. Dui accumsan sit amet nulla facilisi morbi tempus. Fringilla urna porttitor rhoncus dolor purus non. Vitae et leo duis ut diam quam. Eget nunc scelerisque viverra mauris. Sed velit dignissim sodales ut eu. Vitae sapien pellentesque habitant morbi tristique senectus et netus. Vitae proin sagittis nisl rhoncus mattis. Pellentesque adipiscing commodo elit at imperdiet dui accumsan. Elementum facilisis leo vel fringilla est ullamcorper eget nulla. Nunc non blandit massa enim. Risus nec feugiat in fermentum posuere urna nec tincidunt praesent.'
-    }),
-    Agent.create({
-      firstName: 'Jordan',
-      lastName: 'McQueen',
-      agentLicence: '123321890',
-      address: '53 W 53rd St, New York, NY 10019, United States',
-      practiceAreas: ['New York'].join(','),
-      aboutMe: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum vitae sapien pellentesque habitant morbi tristique. Dui accumsan sit amet nulla facilisi morbi tempus. Fringilla urna porttitor rhoncus dolor purus non. Vitae et leo duis ut diam quam. Eget nunc scelerisque viverra mauris. Sed velit dignissim sodales ut eu. Vitae sapien pellentesque habitant morbi tristique senectus et netus. Vitae proin sagittis nisl rhoncus mattis. Pellentesque adipiscing commodo elit at imperdiet dui accumsan. Elementum facilisis leo vel fringilla est ullamcorper eget nulla. Nunc non blandit massa enim. Risus nec feugiat in fermentum posuere urna nec tincidunt praesent.'
+    }).then(agent => {
+      return Review.create({
+        rating: 4.5,
+        comment: 'Great agent!',
+        AgentId: agent.id,
+      });
     }),
   ])
 }
