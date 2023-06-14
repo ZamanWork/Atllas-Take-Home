@@ -1,4 +1,5 @@
-const { Agent } = require('../model');
+const { Agent } = require('../models/agent');
+const Review = require('../models/review');
 
 async function addAgent(req, res) {
   const newAgent = req.validatedData;
@@ -7,7 +8,9 @@ async function addAgent(req, res) {
 }
 
 async function listAgents(req, res) {
-  const agents = await Agent.findAll();
+  const agents = await Agent.findAll({
+    include: Review,
+  });
   return res.status(200).send(agents);
 }
 

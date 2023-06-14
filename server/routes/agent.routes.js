@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
-const validateAgent = require('../utils');
+const {validateAgent} = require('../utils');
 const {agentSchema, updateAgentSchema} = require("../validators/agent.validator");
 const AgentCtrl = require('../controllers/agents.controller');
 
