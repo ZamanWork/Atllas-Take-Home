@@ -7,7 +7,7 @@ const AgentCtrl = require('../controllers/agents.controller');
 
 router.post('/create-agent', validateAgent(agentSchema), asyncHandler(AgentCtrl.addAgent));
 router.get('/agents', asyncHandler(AgentCtrl.listAgents));
-router.get('/agent-details', asyncHandler(AgentCtrl.getAgent));
+router.get('/agent-details', asyncHandler(AgentCtrl.searchAgents));
 router.patch('/update-agent/:id', validateAgent(updateAgentSchema), asyncHandler(AgentCtrl.updateAgent))
 router.delete('/delete-agent/:id', asyncHandler(AgentCtrl.deleteAgent))
 

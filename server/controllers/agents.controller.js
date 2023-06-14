@@ -27,7 +27,7 @@ async function listAgents(req, res) {
   });
 }
 
-async function getAgent(req, res) {
+async function searchAgents(req, res) {
   const searchQuery = req.query.search;
   try {
     const agents = await Agent.findAll({
@@ -95,11 +95,10 @@ async function deleteAgent(req, res) {
   }
 }
 
-
 module.exports = {
   addAgent,
   listAgents,
-  getAgent,
+  searchAgents,
   updateAgent,
   deleteAgent
 };
