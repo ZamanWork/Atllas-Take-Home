@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Agents.css';
 import AgentList from './List';
 import AgentForm from './Form';
-
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 
 const Agents: FC = () => {
   const [agents, setAgents] = useState<IAgent[]>([]);
@@ -14,7 +14,7 @@ const Agents: FC = () => {
   const handleButtonClick = () => {
     setShowModal(true);
   };
-  
+
   useEffect(() => {
     async function fetchInitialData() {
       const response = await axios.get('/agents');
@@ -25,21 +25,42 @@ const Agents: FC = () => {
   return (
     <div>
       {showModal && (
-        <div className="modal show">
-          <div className="modal-content">
+        <div className='modal show'>
+          <div className='modal-content'>
             <AgentForm agent={agents[0]} />
-            <button className="btn btn-danger closeButton" onClick={() => setShowModal(false)}>Close</button>
+            <button
+              className='btn btn-danger closeButton'
+              onClick={() => setShowModal(false)}
+            >
+              <CloseFullscreenIcon />
+            </button>
           </div>
         </div>
       )}
-      <h1>List of All Agents</h1>
 
-      <div className="d-flex" style={{ width: 500 }}>
-        <form className="d-flex">
-          <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-          <button className="btn btn-outline-success" type="submit">Search</button>
+      <div className='heading'>
+        <h1>List of All Agents</h1>
+      </div>
+
+      <div className='d-flex searchBar'>
+        <form className='d-flex'>
+          <input
+            className='form-control me-2'
+            type='search'
+            placeholder='Search'
+            aria-label='Search'
+          />
+          <button className='btn btn-outline-success' type='submit'>
+            Search
+          </button>
         </form>
-        <button className="btn btn-outline-primary" style={{ flex: 'right' }} type="submit" onClick={handleButtonClick}>
+
+        <button
+          className='btn btn-primary joinButton'
+          style={{ flex: 'right' }}
+          type="submit"
+          onClick={handleButtonClick}
+        >
           Join The Team
         </button>
       </div>
