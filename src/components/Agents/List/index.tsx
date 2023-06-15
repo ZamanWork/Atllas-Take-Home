@@ -1,8 +1,6 @@
 import React from 'react';
 import { IAgent } from 'types/Agent';
-
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
 import VisibilitySharpIcon from '@mui/icons-material/VisibilitySharp';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
@@ -15,8 +13,9 @@ import { useState } from 'react';
 import Review from '../Review/Form';
 import AgentReviews from '../Review';
 import ReviewsIcon from '@mui/icons-material/Reviews';
-import AgentInfo from '../Information';
-import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
+import AgentInfo from '../Details';
+import CustomButton from '../../Shared/Button';
+import Modal from '../../Shared/Modal';
 
 interface AgentListProps {
   agents: IAgent[];
@@ -32,6 +31,14 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
 
   const handleReviewButtonClick = () => {
     setShowReviewModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  const handleReviewModalClose = () => {
+    setShowReviewModal(false);
   };
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -56,32 +63,16 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
   return (
     <div className='agents'>
       {showModal && (
-        <div className='modal show'>
-          <div className='modal-content'>
-            <AgentInfo agent={agents[1]} />
-            <AgentReviews agent={agents[1]} />
-            <button
-              className='btn btn-danger closeButton'
-              onClick={() => setShowModal(false)}
-            >
-              <CloseFullscreenIcon/>
-            </button>
-          </div>
-        </div>
+        <Modal showModal={showModal} onClose={handleModalClose}>
+          <AgentInfo agent={agents[1]} title='Agent Details' />
+          <AgentReviews agent={agents[1]} />
+        </Modal>
       )}
 
       {showReviewModal && (
-        <div className='modal show'>
-          <div className='modal-content'>
-            <Review review={agents[0].Reviews} agent={agents[1]} />
-            <button
-              className='btn btn-danger closeButton'
-              onClick={() => setShowReviewModal(false)}
-            >
-              <CloseFullscreenIcon/>
-            </button>
-          </div>
-        </div>
+        <Modal showModal={showReviewModal} onClose={handleReviewModalClose}>
+          <Review review={agents[0]?.Reviews} agent={agents[1]} />
+        </Modal>
       )}
 
       <TableContainer component={Paper}>
@@ -109,27 +100,17 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
                 <StyledTableCell align='right'>
                   {agent.agentLicense}
                 </StyledTableCell>
-                <StyledTableCell align='right'>{agent.address}</StyledTableCell>
+                <StyledTableCell align='right'>
+                  {agent.address}
+                </StyledTableCell>
                 <StyledTableCell align='right'>
                   {agent.practiceAreas}
                 </StyledTableCell>
                 <StyledTableCell align='right'>
-                  <Button
-                    variant='outlined'
-                    onClick={handleButtonClick}
-                    startIcon={<VisibilitySharpIcon />}
-                  >
-                    Show
-                  </Button>
+                  <CustomButton className='btn btn-outline-info' buttonText='Show' icon={<VisibilitySharpIcon/>} onClick={handleButtonClick}/>
                 </StyledTableCell>
                 <StyledTableCell align='right'>
-                  <Button
-                    variant='outlined'
-                    onClick={handleReviewButtonClick}
-                    startIcon={<ReviewsIcon />}
-                  >
-                    Reviews
-                  </Button>
+                  <CustomButton className='btn btn-outline-warning' buttonText='Reviews' icon={<ReviewsIcon/>} onClick={handleReviewButtonClick}/>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

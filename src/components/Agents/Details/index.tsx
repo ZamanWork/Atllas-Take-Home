@@ -3,11 +3,13 @@ import { IAgent } from 'types/Agent';
 
 interface AgentInfoProps {
   agent: IAgent;
+  title: string;
 }
 
-const AgentInfo: React.FC<AgentInfoProps> = ({ agent }) => {
+const AgentInfo: React.FC<AgentInfoProps> = ({ agent, title }) => {
   return (
     <div className='agent-info'>
+      <h1>{title}</h1>
       <div className='card mb-4'>
         <div className='card-body text-center'>
           {agent.photoUrl && (

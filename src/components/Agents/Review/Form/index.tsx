@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { IReview } from 'types/Review';
-import AgentInfo from '../../Information';
+import AgentInfo from '../../Details';
 import { IAgent } from 'types/Agent';
 
 interface ReviewFormProps {
@@ -27,10 +27,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ review, agent }) => {
 
   return (
     <div className='container'>
-      <h1>Review Form</h1>
-
       <div className='row-container'>
-        <AgentInfo agent={agent} />
+        <AgentInfo agent={agent} title='Review Form'/>
 
         <Formik
           initialValues={initialValues}
