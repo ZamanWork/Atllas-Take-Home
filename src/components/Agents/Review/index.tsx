@@ -1,12 +1,11 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@material-ui/core';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import StarIcon from '@mui/icons-material/Star';
 import { IAgent } from 'types/Agent';
 import Avatar from '@mui/material/Avatar';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+
 const Review: React.FC<{ agent: IAgent }> = ({ agent }) => {
-  console.log(agent, "here", agent?.Reviews)
   return (
     <Card>
       <CardContent>
