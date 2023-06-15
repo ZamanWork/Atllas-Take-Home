@@ -15,21 +15,7 @@ function createReview(rating, comment, agent) {
   });
 }
 
-function editReview(newReview, reviewId) {
-  return Review.update(newReview, {
-    where: { id: reviewId },
-  });
-}
-
-function destroyReview(reviewId) {
-  return  Review.destroy({
-    where: { id: reviewId },
-  });
-}
-
 module.exports = {
   findAgent,
   createReview,
-  editReview,
-  destroyReview
 }

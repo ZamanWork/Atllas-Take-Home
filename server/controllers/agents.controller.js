@@ -40,41 +40,8 @@ async function searchAgents(req, res) {
   }
 }
 
-async function updateAgent(req, res) {
-  const newAgent = req.body;
-  const agentId = req.params.id;
-  try {
-    const [affectedRows] = await agentService.editAgent(newAgent, agentId);
-
-    if (affectedRows > 0) {
-      res.status(200).send({message: "Agent Updated Successfully"});
-    } else {
-      res.status(404).send({message: "Agent not found"});
-    }
-  } catch (error) {
-    res.status(500).send({message: error.message});
-  }
-}
-
-async function deleteAgent(req, res) {
-  const agentId = req.params.id;
-  try {
-    const deletedAgent = await agentService.destroyAgent(agentId);
-    
-    if (deletedAgent >  0) {
-      res.status(200).send({message: "Agent Deleted Successfully"});
-    } else {
-      res.status(404).send({message: "Agent not found"});
-    }
-  } catch (error) {
-    res.status(500).send({message: error.message});
-  }
-}
-
 module.exports = {
   addAgent,
   listAgents,
   searchAgents,
-  updateAgent,
-  deleteAgent
 };

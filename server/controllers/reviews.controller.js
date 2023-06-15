@@ -19,40 +19,7 @@ async function addReviewToAgent(req, res) {
   }
 }
 
-async function updateReview(req, res) {
-  const reviewId = req.params.id;
-  const newReview = req.body;
-  try {
-    const [affectedRows] = await reviewService.editReview(newReview, reviewId);
-
-    if (affectedRows > 0) {
-      res.status(200).send({message: "Review Updated Successfully"});
-    } else {
-      res.status(404).send({message: "Review not found"});
-    }
-  } catch (error) {
-    res.status(500).send({message: error.message});
-  }
-}
-
-async function deleteReview(req, res) {
-  const reviewId = req.params.id;
-  try {
-    const deletedReview = await reviewService.destroyReview(reviewId);
-
-    if (deletedReview >  0) {
-      res.status(200).send({message: "Review Deleted Successfully"});
-    } else {
-      res.status(404).send({message: "Review not found"});
-    }
-  } catch (error) {
-    res.status(500).send({message: error.message});
-  }
-}
-
 module.exports = {
   addReviewToAgent,
-  updateReview,
-  deleteReview,
 };
 
