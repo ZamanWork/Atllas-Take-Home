@@ -13,6 +13,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import AgentForm from '../Form';
+import Review from '../Review';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 
 interface AgentListProps {
@@ -21,9 +22,14 @@ interface AgentListProps {
 
 const List: React.FC<AgentListProps> = ({ agents }) => {
   const [showModal, setShowModal] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
 
   const handleButtonClick = () => {
     setShowModal(true);
+  };
+  
+  const handleReviewButtonClick = () => {
+    setShowReviewModal(true);
   };
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -52,6 +58,15 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
           <div className="modal-content">
             <AgentForm agent={agents[0]} />
             <button className="btn btn-danger closeButton" onClick={() => setShowModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
+
+      {showReviewModal && (
+        <div className="modal show">
+          <div className="modal-content">
+            <Review agent={agents[0]} />
+            <button className="btn btn-danger closeButton" onClick={() => setShowReviewModal(false)}>Close</button>
           </div>
         </div>
       )}
@@ -93,7 +108,7 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
                   </Button>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <Button variant="outlined" onClick={handleButtonClick} startIcon={<ReviewsIcon />}>
+                  <Button variant="outlined" onClick={handleReviewButtonClick} startIcon={<ReviewsIcon />}>
                     Reviews
                   </Button>
                 </StyledTableCell>
