@@ -12,12 +12,14 @@ import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
-import AgentForm from '../Form';
-import Review from '../Review';
+import Review from '../Review/Form';
+import AgentReviews from '../Review';
 import ReviewsIcon from '@mui/icons-material/Reviews';
+import AgentInfo from '../Information';
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 
 interface AgentListProps {
-  agents: (IAgent[]);
+  agents: IAgent[];
 }
 
 const List: React.FC<AgentListProps> = ({ agents }) => {
@@ -27,7 +29,7 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
   const handleButtonClick = () => {
     setShowModal(true);
   };
-  
+
   const handleReviewButtonClick = () => {
     setShowReviewModal(true);
   };
@@ -52,63 +54,80 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
   }));
 
   return (
-    <div className="agents">
+    <div className='agents'>
       {showModal && (
-        <div className="modal show">
-          <div className="modal-content">
-            <AgentForm agent={agents[0]} />
-            <button className="btn btn-danger closeButton" onClick={() => setShowModal(false)}>Close</button>
+        <div className='modal show'>
+          <div className='modal-content'>
+            <AgentInfo agent={agents[1]} />
+            <AgentReviews agent={agents[1]} />
+            <button
+              className='btn btn-danger closeButton'
+              onClick={() => setShowModal(false)}
+            >
+              <CloseFullscreenIcon/>
+            </button>
           </div>
         </div>
       )}
 
       {showReviewModal && (
-        <div className="modal show">
-          <div className="modal-content">
-            <Review agent={agents[0]} />
-            <button className="btn btn-danger closeButton" onClick={() => setShowReviewModal(false)}>Close</button>
+        <div className='modal show'>
+          <div className='modal-content'>
+            <Review review={agents[0].Reviews} agent={agents[1]} />
+            <button
+              className='btn btn-danger closeButton'
+              onClick={() => setShowReviewModal(false)}
+            >
+              <CloseFullscreenIcon/>
+            </button>
           </div>
         </div>
       )}
 
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <Table sx={{ minWidth: 700 }} aria-label='customized table'>
           <TableHead>
             <TableRow>
               <StyledTableCell>ID</StyledTableCell>
-              <StyledTableCell align="right">Full Name</StyledTableCell>
-              <StyledTableCell align="right">Agent License</StyledTableCell>
-              <StyledTableCell align="right">Address</StyledTableCell>
-              <StyledTableCell align="right">Practice Areas</StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align='right'>Full Name</StyledTableCell>
+              <StyledTableCell align='right'>Agent License</StyledTableCell>
+              <StyledTableCell align='right'>Address</StyledTableCell>
+              <StyledTableCell align='right'>Practice Areas</StyledTableCell>
+              <StyledTableCell align='right'></StyledTableCell>
+              <StyledTableCell align='right'></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {agents.map((agent) => (
               <StyledTableRow key={agent.id}>
-                <StyledTableCell component="th" scope="row">
+                <StyledTableCell component='th' scope='row'>
                   {agent.id}
                 </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align='right'>
                   {agent.firstName} {agent.lastName}
                 </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align='right'>
                   {agent.agentLicense}
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                  {agent.address}
-                </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align='right'>{agent.address}</StyledTableCell>
+                <StyledTableCell align='right'>
                   {agent.practiceAreas}
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                  <Button variant="outlined" onClick={handleButtonClick} startIcon={<VisibilitySharpIcon />}>
+                <StyledTableCell align='right'>
+                  <Button
+                    variant='outlined'
+                    onClick={handleButtonClick}
+                    startIcon={<VisibilitySharpIcon />}
+                  >
                     Show
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                  <Button variant="outlined" onClick={handleReviewButtonClick} startIcon={<ReviewsIcon />}>
+                <StyledTableCell align='right'>
+                  <Button
+                    variant='outlined'
+                    onClick={handleReviewButtonClick}
+                    startIcon={<ReviewsIcon />}
+                  >
                     Reviews
                   </Button>
                 </StyledTableCell>

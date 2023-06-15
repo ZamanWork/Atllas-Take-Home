@@ -6,61 +6,40 @@ import Avatar from '@mui/material/Avatar';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 const Review: React.FC<{ agent: IAgent }> = ({ agent }) => {
+  console.log(agent, 'here', agent?.Reviews);
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          {agent.firstName} {agent.lastName}
-          {agent.photoUrl && (
-            <div className="mb-3">
-              <img src={agent.photoUrl} alt="Profile" className="profile-image" />
-            </div>
-          )}
-        </Typography>
-
-        <Typography color="textSecondary">
-          ID: {agent.id}
-        </Typography>
-
-        <Typography color="textSecondary">
-          Agent License: {agent.agentLicense}
-        </Typography>
-
-        <Typography variant="h6" component="h3">
-          Reviews:
-        </Typography>
-        
-        {agent.Reviews.map((review, index) => (
-          <div key={index} >
-            <Avatar 
-              className='rounded-circle shadow-1-strong m-auto' 
-              sx={{ width: 128, height: 128 }}
-            >
-              <AccountCircleRoundedIcon sx={{ width: 128, height: 128 }}/>
-            </Avatar>
-            <h5 className="mb-3 mt-0">Anonymous</h5>
-            <i className="fas fa-quote-left pe-2"></i>
-            {review.comment}
-            
-            <ul className="list-unstyled d-flex justify-content-center text-warning mb-0">
+    <div className='row text-center d-flex align-items-stretch'>
+      <h3>Reviews</h3>
+      {agent.Reviews.map((review, index) => (
+        <div className='card testimonial-card'>
+          <div className='card-up'></div>
+          <div className='avatar bg-white'>
+            <img
+              src='https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp'
+              className='rounded-circle shadow-1-strong'
+              width='100'
+              height='100'
+              alt='Avatar'
+            />
+          </div>
+          <h4 className='mb-4'>Anonymous</h4>
+          <div className='card-body'>
+            <hr />
+            <p className='mb-3'>Agent Expert</p>
+            <p className='mb-3'>{review.comment}</p>
+            <p className='mb-3'>Rating: {review.rating}</p>
+            <ul className='list-unstyled d-flex justify-content-center text-warning mb-0'>
               {Array.from({ length: review.rating }, (_, i) => (
                 <li key={i}>
-                  <StarIcon/>
-                </li>
-              ))}
-              {Array.from({ length: 5 - review.rating }, (_, i) => (
-                <li key={i}>
-                  <StarIcon/>
+                  <StarIcon />
                 </li>
               ))}
             </ul>
           </div>
-        ))}
-      </CardContent>
-    </Card>
+        </div>
+      ))}
+    </div>
   );
 };
 
 export default Review;
-
-
