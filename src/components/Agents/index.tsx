@@ -7,6 +7,7 @@ import AgentForm from 'components/Agents/Form';
 import Button from 'components/Shared/Button';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import Modal from 'components/Shared/Modal';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Agents: FC = () => {
   const [agents, setAgents] = useState<IAgent[]>([]);
@@ -45,7 +46,7 @@ const Agents: FC = () => {
             aria-label='Search'
           />
           <button className='btn btn-outline-success' type='submit'>
-            Search
+            <SearchIcon/>
           </button>
         </form>
 

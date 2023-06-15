@@ -140,3 +140,9 @@ small,
   color: red;
   font-size: small;
 }
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
