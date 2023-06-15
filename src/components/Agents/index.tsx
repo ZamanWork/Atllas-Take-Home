@@ -2,10 +2,11 @@ import type { FC } from 'react';
 import { useState, useEffect } from 'react';
 import { IAgent } from 'types/Agent';
 import axios from 'axios';
-import './Agents.css';
-import AgentList from './List';
-import AgentForm from './Form';
-import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
+import AgentList from 'components/Agents/List';
+import AgentForm from 'components/Agents/Form';
+import Button from 'components/Shared/Button';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import Modal from 'components/Shared/Modal';
 
 const Agents: FC = () => {
   const [agents, setAgents] = useState<IAgent[]>([]);
@@ -22,20 +23,13 @@ const Agents: FC = () => {
     }
     fetchInitialData();
   }, []);
+
   return (
     <div>
       {showModal && (
-        <div className='modal show'>
-          <div className='modal-content'>
-            <AgentForm agent={agents[0]} />
-            <button
-              className='btn btn-danger closeButton'
-              onClick={() => setShowModal(false)}
-            >
-              <CloseFullscreenIcon />
-            </button>
-          </div>
-        </div>
+        <Modal showModal={showModal} onClose={() => setShowModal(false)}>
+          <AgentForm agent={agents[0]} />
+        </Modal>
       )}
 
       <div className='heading'>
@@ -55,14 +49,12 @@ const Agents: FC = () => {
           </button>
         </form>
 
-        <button
+        <Button
           className='btn btn-primary joinButton'
-          style={{ flex: 'right' }}
-          type="submit"
+          buttonText='Join The Team'
+          icon={<PersonAddAlt1Icon/>}
           onClick={handleButtonClick}
-        >
-          Join The Team
-        </button>
+        />
       </div>
 
       <AgentList agents={agents} />

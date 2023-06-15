@@ -1,9 +1,6 @@
 import React from 'react';
-import { Card, CardContent, Typography } from '@material-ui/core';
 import StarIcon from '@mui/icons-material/Star';
 import { IAgent } from 'types/Agent';
-import Avatar from '@mui/material/Avatar';
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 const Review: React.FC<{ agent: IAgent }> = ({ agent }) => {
   return (

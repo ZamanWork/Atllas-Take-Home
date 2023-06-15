@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import { Provider } from "react-redux";
-import Header from 'Layouts/Header/Header'
-import Footer from 'Layouts/Footer/Footer'
+import Header from 'layout/header';
+import Footer from 'layout/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./App.css";
+import "components/App/App.css";
 import Agents from "../Agents";
 import store from "store";
 

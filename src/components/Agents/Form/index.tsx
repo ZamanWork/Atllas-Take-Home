@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { IAgent, FormValues, AgentFormProps } from 'types/Agent';
+import { FormValues, AgentFormProps } from 'types/Agent';
 import { Formik, Form } from 'formik';
-import InputField from './InputField';
+import InputField from 'components/Agents/Form/InputField';
 import { createAgent } from 'store/actions/createAgent';
 import {agentValidationSchema} from 'helpers/agentValidationSchema'
 
@@ -31,7 +31,7 @@ const AddAgentForm: React.FC<AgentFormProps> = ({ agent }) => {
   };
 
   return (
-    <div className="container">
+    <div className='container'>
       <h1>Agent Form</h1>
         <Formik
         initialValues={initialValues}
@@ -39,45 +39,27 @@ const AddAgentForm: React.FC<AgentFormProps> = ({ agent }) => {
         onSubmit={handleSubmit}
       >
         <Form>
+          <InputField labelText='First Name' inputName='firstName' />
 
-          <InputField
-            labelText='First Name'
-            inputName='firstName'
-          />
+          <InputField labelText='Last Name' inputName='lastName' />
 
-          <InputField
-            labelText='Last Name'
-            inputName='lastName'
-          />
+          <InputField labelText='Agent License' inputName='agentLicense' />
 
-          <InputField
-            labelText='Agent License'
-            inputName='agentLicense'
-          />
+          <InputField labelText='Address' inputName='address' />
 
-          <InputField
-            labelText='Address'
-            inputName='address'
-          />        
-
-          <InputField
-            labelText='Practice Areas'
-            inputName='practiceAreas'
-          /> 
+          <InputField labelText='Practice Areas' inputName='practiceAreas' />
 
           <InputField
             labelText='About Me'
             inputName='aboutMe'
             type='textarea'
-          /> 
-
-          <InputField 
-            labelText='Picture URL'
-            inputName='pictureUrl'
           />
-          
-          <button className='btn btn-primary' type="submit">Add Agent</button>
 
+          <InputField labelText='Picture URL' inputName='pictureUrl' />
+
+          <button className='btn btn-primary' type='submit'>
+            Add Agent
+          </button>
         </Form>
       </Formik>
     </div>
