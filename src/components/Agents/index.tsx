@@ -49,7 +49,12 @@ const Agents: FC = () => {
           </button>
         </form>
 
-        <Button className='btn btn-primary joinButton' buttonText='Join The Team' icon={<PersonAddAlt1Icon/>} onClick={handleButtonClick}/>
+        <Button
+          className='btn btn-primary joinButton'
+          buttonText='Join The Team'
+          icon={<PersonAddAlt1Icon/>}
+          onClick={handleButtonClick}
+        />
       </div>
 
       <AgentList agents={agents} />

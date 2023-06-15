@@ -35,7 +35,12 @@ function Modal({ showModal, onClose, children }: ModalProps) {
     <div className='modal show'>
       <div className='modal-content' ref={modalRef}>
         {children}
-        <Button className='btn btn-danger closeButton' buttonText='' icon={<CloseFullscreenIcon />} onClick={onClose} />
+        <Button
+          className='btn btn-danger closeButton'
+          buttonText=''
+          icon={<CloseFullscreenIcon />}
+          onClick={onClose}
+        />
       </div>
     </div>
   );
