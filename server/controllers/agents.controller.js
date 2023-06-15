@@ -2,10 +2,10 @@ const { Agent } = require('../models/agent');
 const agentService = require('../DAO/agents.dao')
 
 async function addAgent(req, res) {
+  const practices = req.validatedData.practiceAreas.join(',')
   const newAgent = req.validatedData;
 
-  const data = await agentService.createAgent(newAgent);
-
+  const data = await agentService.createAgent(newAgent, practices);
   res.send({message: "Successfully created an agent", agent: data});
 }
 

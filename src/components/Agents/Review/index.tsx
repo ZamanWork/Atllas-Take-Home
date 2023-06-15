@@ -6,11 +6,10 @@ import Avatar from '@mui/material/Avatar';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 const Review: React.FC<{ agent: IAgent }> = ({ agent }) => {
-  console.log(agent, 'here', agent?.Reviews);
   return (
     <div className='row text-center d-flex align-items-stretch'>
       <h3>Reviews</h3>
-      {agent.Reviews.map((review, index) => (
+      {agent?.Reviews && agent.Reviews.map((review, index) => (
         <div className='card testimonial-card'>
           <div className='card-up'></div>
           <div className='avatar bg-white'>

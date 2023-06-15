@@ -2,8 +2,8 @@ const { Agent } = require("../models/agent");
 const Review = require("../models/review");
 const { Op } = require('sequelize');
 
-function createAgent(agentObj) {
-  return Agent.create(agentObj)
+function createAgent(agentObj, practices) {
+  return Agent.create({...agentObj, practiceAreas: practices})
 }
 
 function getAllAgents(offset, limit) {
