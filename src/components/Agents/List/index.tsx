@@ -10,12 +10,12 @@ import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
-import Review from '../Review/Form';
-import AgentReviews from '../Review';
+import Review from 'components/Agents/Review/Form';
+import AgentReviews from 'components/Agents/Review';
 import ReviewsIcon from '@mui/icons-material/Reviews';
-import AgentInfo from '../Details';
-import CustomButton from '../../Shared/Button';
-import Modal from '../../Shared/Modal';
+import AgentInfo from 'components/Agents/Details';
+import CustomButton from 'components/Shared/Button';
+import Modal from 'components/Shared/Modal';
 
 interface AgentListProps {
   agents: IAgent[];
@@ -107,10 +107,20 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
                   {agent.practiceAreas}
                 </StyledTableCell>
                 <StyledTableCell align='right'>
-                  <CustomButton className='btn btn-outline-info' buttonText='Show' icon={<VisibilitySharpIcon/>} onClick={handleButtonClick}/>
+                  <CustomButton
+                    className='btn btn-outline-info'
+                    buttonText='Show'
+                    icon={<VisibilitySharpIcon/>}
+                    onClick={handleButtonClick}
+                  />
                 </StyledTableCell>
                 <StyledTableCell align='right'>
-                  <CustomButton className='btn btn-outline-warning' buttonText='Reviews' icon={<ReviewsIcon/>} onClick={handleReviewButtonClick}/>
+                  <CustomButton
+                    className='btn btn-outline-warning'
+                    buttonText='Reviews'
+                    icon={<ReviewsIcon/>}
+                    onClick={handleReviewButtonClick}
+                  />
                 </StyledTableCell>
               </StyledTableRow>
             ))}

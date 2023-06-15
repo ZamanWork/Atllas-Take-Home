@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { FormValues, AgentFormProps } from 'types/Agent';
 import { Formik, Form } from 'formik';
-import InputField from './InputField';
+import InputField from 'components/Agents/Form/InputField';
 import { createAgent } from 'store/actions/createAgent';
 import {agentValidationSchema} from 'helpers/agentValidationSchema'
 

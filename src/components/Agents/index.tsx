@@ -2,11 +2,11 @@ import type { FC } from 'react';
 import { useState, useEffect } from 'react';
 import { IAgent } from 'types/Agent';
 import axios from 'axios';
-import AgentList from './List';
-import AgentForm from './Form';
-import Button from '../Shared/Button';
+import AgentList from 'components/Agents/List';
+import AgentForm from 'components/Agents/Form';
+import Button from 'components/Shared/Button';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import Modal from '../Shared/Modal';
+import Modal from 'components/Shared/Modal';
 
 const Agents: FC = () => {
   const [agents, setAgents] = useState<IAgent[]>([]);

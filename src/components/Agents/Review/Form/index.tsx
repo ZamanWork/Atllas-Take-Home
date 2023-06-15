@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { IReview } from 'types/Review';
-import AgentInfo from '../../Details';
+import AgentInfo from 'components/Agents/Details';
 import { IAgent } from 'types/Agent';
 
 interface ReviewFormProps {
