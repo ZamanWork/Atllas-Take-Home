@@ -38,23 +38,8 @@ function findAgents(searchQuery) {
   });
 }
 
-function editAgent(newAgent, agentId) {
-  return Agent.update(newAgent, {
-    where: { id: agentId },
-  });
-
-}
-
-function destroyAgent(agentId) {
-  return Agent.destroy({
-    where: { id: agentId },
-  });
-}
-
 module.exports = {
   createAgent,
   getAllAgents,
   findAgents,
-  editAgent,
-  destroyAgent
 }
