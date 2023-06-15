@@ -1,61 +1,89 @@
 import React from 'react';
 import { IAgent } from 'types/Agent';
+import { Formik, Form } from 'formik';
+import InputField from './InputField';
+import {agentValidationSchema} from 'helpers/agentValidationSchema'
 
 interface AgentFormProps {
   agent: IAgent;
 }
 
-const Form: React.FC<AgentFormProps> = ({ agent }) => {
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+const AddAgentForm: React.FC<AgentFormProps> = ({ agent }) => {
+  interface AgentFormValues {
+    firstName: string;
+    lastName: string;
+    agentLicense: string;
+    address: string;
+    practiceAreas: string;
+    aboutMe: string;
+    pictureUrl: string;
+  }
+
+  const handleSubmit = (values: AgentFormValues) => {
+    // Handle form submission logic here
+    console.log(values);
   };
 
   return (
     <div className="container">
       <h1>Agent Form</h1>
-      <form onSubmit={handleSubmit}>
-        {agent.photoUrl && (
-          <div className="mb-3">
-            <img src={agent.photoUrl} alt="Profile" className="profile-image" />
-          </div>
-        )}
+        <Formik
+        initialValues={{
+          firstName: '',
+          lastName: '',
+          agentLicense: '',
+          address: '',
+          practiceAreas: '',
+          aboutMe: '',
+          pictureUrl: '',
+        }}
+        validationSchema={agentValidationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form>
 
-        <div className="mb-3">
-          <label htmlFor="firstName" className="form-label">First Name</label>
-          <input id="firstName" name="firstName" type="text" value={agent.firstName} disabled className="form-control" />
-        </div>
+          <InputField
+            labelText='First Name'
+            inputName='firstName'
+          />
 
-        <div className="mb-3">
-          <label htmlFor="lastName" className="form-label">Last Name</label>
-          <input id="lastName" name="lastName" type="text" value={agent.lastName} disabled className="form-control" />
-        </div>
+          <InputField
+            labelText='Last Name'
+            inputName='lastName'
+          />
 
-        <div className="mb-3">
-          <label htmlFor="agentLicense" className="form-label">Agent License</label>
-          <input id="agentLicense" name="agentLicense" type="text" value={agent.agentLicense} disabled className="form-control" />
-        </div>
+          <InputField
+            labelText='Agent License'
+            inputName='agentLicense'
+          />
 
-        <div className="mb-3">
-          <label htmlFor="address" className="form-label">Address</label>
-          <input id="address" name="address" type="text" value={agent.address} disabled className="form-control" />
-        </div>
+          <InputField
+            labelText='Address'
+            inputName='address'
+          />        
 
-        <div className="mb-3">
-          <label htmlFor="practiceAreas" className="form-label">Practice Areas</label>
-          <input id="practiceAreas" name="practiceAreas" type="text" value={agent.practiceAreas} disabled className="form-control" />
-        </div>
+          <InputField
+            labelText='Practice Areas'
+            inputName='practiceAreas'
+          /> 
 
-        <div className="mb-3">
-          <label htmlFor="aboutMe" className="form-label">About Me</label>
-          <textarea id="aboutMe" name="aboutMe" value={agent.aboutMe} disabled className="form-control" />
-        </div>
+          <InputField
+            labelText='About Me'
+            inputName='aboutMe'
+            type='textarea'
+          /> 
 
-        <button type="submit" className="btn btn-primary" disabled>
-          Submit
-        </button>
-      </form>
+          <InputField 
+            labelText='Picture URL'
+            inputName='pictureUrl'
+          />
+          
+          <button className='btn btn-primary' type="submit">Add Agent</button>
+
+        </Form>
+      </Formik>
     </div>
   );
 };
 
-export default Form;
+export default AddAgentForm;
