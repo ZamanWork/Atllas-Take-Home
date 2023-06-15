@@ -85,7 +85,7 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
       )}
 
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label='customized table'>
+        <Table sx={{ minWidth: 700, marginBottom: '60px' }} aria-label='customized table'>
           <TableHead>
             <TableRow>
               <StyledTableCell>ID</StyledTableCell>

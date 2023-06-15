@@ -1,42 +1,40 @@
 import React from 'react';
-import { IAgent } from 'types/Agent';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
+import { IAgent, FormValues, AgentFormProps } from 'types/Agent';
 import { Formik, Form } from 'formik';
 import InputField from './InputField';
+import { createAgent } from 'store/actions/createAgent';
 import {agentValidationSchema} from 'helpers/agentValidationSchema'
 
-interface AgentFormProps {
-  agent: IAgent;
-}
-
 const AddAgentForm: React.FC<AgentFormProps> = ({ agent }) => {
-  interface AgentFormValues {
-    firstName: string;
-    lastName: string;
-    agentLicense: string;
-    address: string;
-    practiceAreas: string;
-    aboutMe: string;
-    pictureUrl: string;
-  }
 
-  const handleSubmit = (values: AgentFormValues) => {
-    // Handle form submission logic here
-    console.log(values);
+  const initialValues: FormValues = {
+    firstName: '',
+    lastName: '',
+    agentLicense: '',
+    address: '',
+    practiceAreas: [],
+    aboutMe: '',
+    pictureUrl: '',
+  };
+
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const handleSubmit = (values: any) => {
+    const payload = { ...values };
+    if (payload.pictureUrl === '') {
+      delete payload.pictureUrl;
+    }
+    const practices = payload.practiceAreas.split(', ');
+    dispatch(createAgent({...payload, practiceAreas: practices}));
   };
 
   return (
     <div className="container">
       <h1>Agent Form</h1>
         <Formik
-        initialValues={{
-          firstName: '',
-          lastName: '',
-          agentLicense: '',
-          address: '',
-          practiceAreas: '',
-          aboutMe: '',
-          pictureUrl: '',
-        }}
+        initialValues={initialValues}
         validationSchema={agentValidationSchema}
         onSubmit={handleSubmit}
       >

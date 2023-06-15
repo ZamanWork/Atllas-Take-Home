@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field, ErrorMessage } from 'formik';
-import { IAgent } from 'types/Agent';
 
 import './Form.css'
 

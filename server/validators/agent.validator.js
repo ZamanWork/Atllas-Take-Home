@@ -15,7 +15,7 @@ const agentSchema = Joi.object({
     return value;
   }),
   address: Joi.string().required(),
-  practiceAreas: Joi.string(),
+  practiceAreas: Joi.array(),
   aboutMe: Joi.string().min(1).max(255),
 })
 
