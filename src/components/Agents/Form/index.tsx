@@ -16,7 +16,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({ setShowModal, setLoader }) 
     address: '',
     practiceAreas: [],
     aboutMe: '',
-    pictureUrl: '',
+    photoUrl: '',
   };
 
   const dispatch: Dispatch<any> = useDispatch();
@@ -24,8 +24,8 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({ setShowModal, setLoader }) 
   const handleSubmit = (values: any) => {
     setLoader(true);
     const payload = { ...values };
-    if (payload.pictureUrl === '') {
-      delete payload.pictureUrl;
+    if (payload.photoUrl === '') {
+      delete payload.photoUrl;
     }
     const practices = payload.practiceAreas.split(', ');
     dispatch(createAgent(
@@ -61,7 +61,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({ setShowModal, setLoader }) 
             type='textarea'
           />
 
-          <InputField labelText='Picture URL' inputName='pictureUrl' />
+          <InputField labelText='Picture URL' inputName='photoUrl' />
 
           <button className='btn btn-primary' type='submit'>
             Add Agent

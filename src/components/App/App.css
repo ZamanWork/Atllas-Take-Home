@@ -147,7 +147,7 @@ small,
   margin-top: 20px;
   margin-bottom: 80px;
 }
-.loader{
+.loader {
   display: flex;
   position: absolute;
   align-content: center;
@@ -194,4 +194,8 @@ small,
 .card-body {
   margin-top: 20px;
   padding-top: 20px;
+}
+
+.agent-info {
+  min-width: 100%;
 }
