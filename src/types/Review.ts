@@ -1,5 +1,5 @@
 export interface IReview {
-    id: number;
+    id?: number;
     rating: number;
     comment: string;
   }

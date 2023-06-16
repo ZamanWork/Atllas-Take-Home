@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { AgentListProps, IAgent } from 'types/Agent';
 import { IReview } from 'types/Review';
-
 import Paper from '@mui/material/Paper';
 import VisibilitySharpIcon from '@mui/icons-material/VisibilitySharp';
 import TableContainer from '@mui/material/TableContainer';
@@ -19,10 +17,15 @@ import AgentInfo from 'components/Agents/Details';
 import CustomButton from 'components/Shared/Button';
 import Modal from 'components/Shared/Modal';
 import ReviewForm from 'components/Agents/Review/Form';
+import { showAgentApi } from 'store/actions/agent/showAgent';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch } from 'redux';
+import { RootState } from 'store/reducers';
 
 const List: React.FC<AgentListProps> = ({ agents, totalPages, setCurrentPage, currentPage }) => {
   const [showModal, setShowModal] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
+
   const [showAgent, setShowAgent] = useState({
     id: '',
     firstName: '',
@@ -32,21 +35,26 @@ const List: React.FC<AgentListProps> = ({ agents, totalPages, setCurrentPage, cu
     aboutMe: '',
     photoUrl: '',
   });
-  const [showReviews, setShowReviews] = useState([{
-    id: 0,
-    rating: 0.0,
-    comment: ''
-  }])
+
+  const dispatch: Dispatch<any> = useDispatch();
+  const agentDetails = useSelector<RootState, any>((state) => state.data.agent);
+
+  useEffect(() => {
+    setShowAgent(agentDetails)
+  },[agentDetails])
+
+  const getAgentData=(agentID: string) => {
+    dispatch(showAgentApi(agentID))
+  }
 
   const handleButtonClick = (agent: IAgent) => {
+    getAgentData(agent.id)
     setShowModal(true);
-    setShowAgent(agent);
   };
 
-  const handleReviewButtonClick = (reviews: IReview[], agent: IAgent) => {
+  const handleReviewButtonClick = (agent: IAgent) => {
+    setShowAgent(agent)
     setShowReviewModal(true);
-    setShowReviews(reviews);
-    setShowAgent(agent);
   };
 
   const handleModalClose = () => {
@@ -95,13 +103,13 @@ const List: React.FC<AgentListProps> = ({ agents, totalPages, setCurrentPage, cu
 
         {showReviewModal && (
           <Modal showModal={showReviewModal} onClose={handleReviewModalClose}>
-            <ReviewForm review={showReviews} agent={showAgent} />
+            <ReviewForm agent={showAgent} />
           </Modal>
         )}
 
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label='customized table'>
-            <TableHead>
+            <TableHead className='table-header'>
               <TableRow>
                 <StyledTableCell>ID</StyledTableCell>
                 <StyledTableCell align='right'>Full Name</StyledTableCell>
@@ -143,7 +151,7 @@ const List: React.FC<AgentListProps> = ({ agents, totalPages, setCurrentPage, cu
                       className='btn btn-outline-warning'
                       buttonText='Reviews'
                       icon={<ReviewsIcon/>}
-                      onClick={() => handleReviewButtonClick(agent.Reviews|| [], agent)}
+                      onClick={() => handleReviewButtonClick(agent)}
                     />
                   </StyledTableCell>
                 </StyledTableRow>

@@ -9,9 +9,6 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
     <header className='header navbar navbar-expand-lg navbar-dark bg-dark'>
       <ul className='navbar-nav'>
         <span className='navbar-brand'>{title}</span>
-        <li className='nav-item active'>
-          <span className='nav-link'>Home</span>
-        </li>
       </ul>
     </header>
   );

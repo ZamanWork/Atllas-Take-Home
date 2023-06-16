@@ -8,7 +8,7 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import Modal from 'components/Shared/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
-import { listAgents } from 'store/actions/listAgents';
+import { listAgents } from 'store/actions/agent/listAgents';
 import { RootState } from 'store/reducers';
 import AgentSearch from './Form/Search';
 import AppLoader from 'components/Shared/AppLoader';
@@ -39,9 +39,8 @@ const Agents: FC = () => {
     dispatch(listAgents(currentPage, setLoader))
   },[currentPage, agent])
 
-
   useEffect(() => {
-    if (agentList.length > 0) 
+    if (agentList.length > 0)
       setAgents(agentList)
   },[agentList, totalCount])
 
@@ -60,9 +59,9 @@ const Agents: FC = () => {
       </div>
 
       <div className='d-flex searchBar'>
-        <AgentSearch 
-          currentPage={currentPage} 
-          setCurrentPage={setCurrentPage} 
+        <AgentSearch
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
           setLoader={setLoader}
         />
 
@@ -74,9 +73,9 @@ const Agents: FC = () => {
         />
       </div>
 
-      <AgentList 
-        agents={agents} 
-        totalPages={totalCount} 
+      <AgentList
+        agents={agents}
+        totalPages={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />

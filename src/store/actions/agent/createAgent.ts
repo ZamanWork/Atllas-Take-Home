@@ -1,7 +1,7 @@
 import { createAgentApi } from "store/api/agents";
-import { 
-  CREATE_AGENT_FAILURE, 
-  CREATE_AGENT_SUCCESS 
+import {
+  CREATE_AGENT_FAILURE,
+  CREATE_AGENT_SUCCESS
 } from "store/constants/agentConstants";
 import { SUCCESSFUL } from "store/constants/statusCodes";
 

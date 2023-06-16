@@ -95,7 +95,7 @@ small,
 
 .searchBar {
   justify-content: space-between;
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
 }
 
 .closeButton {
@@ -133,7 +133,7 @@ small,
 
 .heading {
   text-align: center;
-  padding: 20px;
+  padding: 20px 20px 0px 20px;
 }
 
 .error-message {
@@ -157,4 +157,41 @@ small,
   height: 100%;
   width: 100%;
   z-index: 10000;
+}
+
+.header {
+  padding: 15px;
+}
+
+.header span {
+  font-weight: bolder;
+}
+
+.table-header th {
+  font-weight: bold;
+  font-size: medium;
+}
+
+.review-row {
+  width: 100%;
+  margin: auto;
+}
+
+.review-row .card {
+  margin: 5px 0px 5px 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+.avatar {
+  padding: 10px;
+}
+
+.card h4 {
+  margin: 0px;
+}
+
+.card-body {
+  margin-top: 20px;
+  padding-top: 20px;
 }

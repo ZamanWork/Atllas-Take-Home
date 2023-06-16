@@ -4,9 +4,13 @@ import * as Yup from 'yup';
 import { IReview } from 'types/Review';
 import AgentInfo from 'components/Agents/Details';
 import { IAgent } from 'types/Agent';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
+import { createReview } from 'store/actions/review/createReview';
 
 interface ReviewFormProps {
-  review: IReview[];
   agent: IAgent;
 }
 
@@ -16,15 +20,32 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ agent }) => {
     comment: '',
   };
 
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const handleSubmit = (values: any) => {
+    if(values.comment && values.rating){
+      const rating = values.rating || 0;
+      const payload: IReview = {
+        rating: parseFloat(rating.toString()),
+        comment: values.comment,
+      };
+      console.log(values.comment)
+      dispatch(createReview(agent.id,payload));
+    }
+  };
+
   const validationSchema = Yup.object().shape({
     rating: Yup.number().required('Rating is required'),
     comment: Yup.string().required('Comment is required'),
   });
 
-  const handleSubmit = (values: any) => {
-    console.log(values);
-  };
-
+  const validateRating = (value: any) =>{
+      let error;
+      if (!value || value === 0) {
+          error = 'Required';
+      }
+      return error;
+  }
   return (
     <div className='container'>
       <div className='row-container'>
@@ -35,45 +56,56 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ agent }) => {
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
-          <Form>
-            <div className='mb-3'>
-              <label htmlFor='rating' className='form-label'>
-                Rating
-              </label>
-              <Field
-                id='rating'
-                name='rating'
-                type='number'
-                className='form-control'
-              />
-              <ErrorMessage
-                name='rating'
-                component='div'
-                className='error-message'
-              />
-            </div>
+          {({ values, handleChange }) => (
+            <Form>
+              <div className='mb-3'>
+                <label htmlFor='rating' className='form-label'>
+                  Rating
+                </label>
+                <Field name="rating" id="rating" validate={validateRating}>
+                  {( field: any ) => (
+                    <div>
+                      <Stack spacing={1}>
+                        <Rating
+                          name="rating"
+                          defaultValue={0}
+                          precision={0.5}
+                          value={parseFloat(values.rating.toString())}
+                          onChange={handleChange}
+                          />
+                      </Stack>
+                    </div>
+                    )}
+                </Field>
+                <ErrorMessage
+                  name='rating'
+                  component='div'
+                  className='error-message'
+                />
+              </div>
 
-            <div className='mb-3'>
-              <label htmlFor='comment' className='form-label'>
-                Comment
-              </label>
-              <Field
-                id='comment'
-                name='comment'
-                as='textarea'
-                className='form-control'
-              />
-              <ErrorMessage
-                name='comment'
-                component='div'
-                className='error-message'
-              />
-            </div>
+              <div className='mb-3'>
+                <label htmlFor='comment' className='form-label'>
+                  Comment
+                </label>
+                <Field
+                  id='comment'
+                  name='comment'
+                  as='textarea'
+                  className='form-control'
+                />
+                <ErrorMessage
+                  name='comment'
+                  component='div'
+                  className='error-message'
+                />
+              </div>
 
-            <button type='submit' className='btn btn-primary'>
-              Submit
-            </button>
-          </Form>
+              <button type='submit' className='btn btn-primary' onClick={handleSubmit}>
+                Submit
+              </button>
+            </Form>
+          )}
         </Formik>
       </div>
     </div>
