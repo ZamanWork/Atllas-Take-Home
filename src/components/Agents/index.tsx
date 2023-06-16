@@ -39,7 +39,6 @@ const Agents: FC = () => {
     dispatch(listAgents(currentPage, setLoader))
   },[currentPage, agent])
 
-
   useEffect(() => {
     if (agentList.length > 0)
       setAgents(agentList)
