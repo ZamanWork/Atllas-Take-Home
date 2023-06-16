@@ -20,7 +20,7 @@ import CustomButton from 'components/Shared/Button';
 import Modal from 'components/Shared/Modal';
 import ReviewForm from 'components/Agents/Review/Form';
 
-const List: React.FC<AgentListProps> = ({ agents, totalPages, currentPage, setCurrentPage }) => {
+const List: React.FC<AgentListProps> = ({ agents, totalPages, setCurrentPage, currentPage }) => {
   const [showModal, setShowModal] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [showAgent, setShowAgent] = useState({
@@ -61,7 +61,7 @@ const List: React.FC<AgentListProps> = ({ agents, totalPages, currentPage, setCu
     event: React.ChangeEvent<unknown>,
     page: number
   ) => {
-    setCurrentPage(page);
+    setCurrentPage({...currentPage, page: page});
   };
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -155,7 +155,7 @@ const List: React.FC<AgentListProps> = ({ agents, totalPages, currentPage, setCu
       <div className='pagination-container'>
         <Pagination
           count={totalPages}
-          page={currentPage}
+          page={currentPage.page}
           onChange={handlePageChange}
           color='primary'
           className='pagination'

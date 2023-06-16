@@ -1,5 +1,5 @@
+const agentService = require('../DAO/agents.dao'); 
 const { Agent } = require('../models/agent');
-const agentService = require('../DAO/agents.dao')
 
 async function addAgent(req, res) {
   const practices = req.validatedData.practiceAreas.join(',')
@@ -10,38 +10,33 @@ async function addAgent(req, res) {
 }
 
 async function listAgents(req, res) {
-  const page = parseInt(req.query.page) || 1;
-  const limit = 5;
-  const offset = (page - 1) * limit;
-  
-  const agents = await agentService.getAllAgents(offset, limit); 
-
-  const totalPageCount = Math.ceil(await Agent.count()/limit);
-  return res.status(200).send({
-    agents,
-    page,
-    limit,
-    totalPageCount,
-  });
-}
-
-async function searchAgents(req, res) {
-  const searchQuery = req.query.search;
   try {
-    const agents = await agentService.findAgents(searchQuery); 
+    const page = parseInt(req.query.page) || 1;
+    const { search } = req.query;
+    const limit = 5;
+    const offset = (page - 1) * limit;
+    let agents = [];
+    let totalPageCount = 0;
+    agents = await agentService.findAgents(search, offset, limit);
 
-    if (agents) {
-      res.status(200).send(agents);
+    if (search) {
+      agentsCount = await agentService.agentsCount(search, offset);
+      totalPageCount = Math.ceil(agentsCount/limit);
     } else {
-      res.status(404).send({message: "Agent not found"});
-    }
-  } catch (error) {
-    res.status(500).send({message: error.message});
+      totalPageCount = Math.ceil(await Agent.count()/limit);
+    } 
+  
+    return res.status(200).send({
+      agents,
+      page,
+      totalPageCount,
+    });
+  } catch(error) {
+    res.status(500).send({message: error.message})
   }
 }
 
 module.exports = {
   addAgent,
   listAgents,
-  searchAgents,
 };
