@@ -11,7 +11,7 @@ async function addAgent(req, res) {
 
 async function listAgents(req, res) {
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
+  const limit = 5;
   const offset = (page - 1) * limit;
   
   const agents = await agentService.getAllAgents(offset, limit); 

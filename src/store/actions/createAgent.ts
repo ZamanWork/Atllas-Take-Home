@@ -9,12 +9,12 @@ import { IAgent } from 'types/Agent';
 
 const success = (agent: IAgent) => ({
   type: CREATE_AGENT_SUCCESS,
-  payload: agent,
+  agent,
 });
 
 const failure = (error: any) => ({
   type: CREATE_AGENT_FAILURE,
-  payload: error,
+  error,
 });
 
 export const createAgent = (agent: any) => (dispatch: any) => {

@@ -1,35 +1,47 @@
 import type { FC } from 'react';
 import { useState, useEffect } from 'react';
 import { IAgent } from 'types/Agent';
-import axios from 'axios';
 import AgentList from 'components/Agents/List';
 import AgentForm from 'components/Agents/Form';
 import Button from 'components/Shared/Button';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import Modal from 'components/Shared/Modal';
 import SearchIcon from '@mui/icons-material/Search';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch } from 'redux';
+
+import { listAgents } from 'store/actions/listAgents';
+import { RootState } from 'store/reducers';
 
 const Agents: FC = () => {
   const [agents, setAgents] = useState<IAgent[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleButtonClick = () => {
     setShowModal(true);
   };
 
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const agentList = useSelector<RootState, any>((state) => state.data.agents);
+  const { totalCount } = useSelector<RootState, any>((state) => state.data);
+
   useEffect(() => {
-    async function fetchInitialData() {
-      const response = await axios.get('/agents');
-      setAgents(response.data.agents);
-    }
-    fetchInitialData();
-  }, []);
+    dispatch(listAgents(currentPage))
+  },[currentPage])
+
+
+  useEffect(() => {
+    if (agentList.length > 0) 
+      setAgents(agentList)
+  },[agentList])
 
   return (
     <div>
       {showModal && (
         <Modal showModal={showModal} onClose={() => setShowModal(false)}>
-          <AgentForm agent={agents[0]} />
+          <AgentForm />
         </Modal>
       )}
 
@@ -58,7 +70,12 @@ const Agents: FC = () => {
         />
       </div>
 
-      <AgentList agents={agents} />
+      <AgentList 
+        agents={agents} 
+        totalPages={totalCount} 
+        currentPage={currentPage}  
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };

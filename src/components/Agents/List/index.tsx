@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { IAgent } from 'types/Agent';
+
+import { AgentListProps, IAgent } from 'types/Agent';
+import { IReview } from 'types/Review';
+
 import Paper from '@mui/material/Paper';
 import VisibilitySharpIcon from '@mui/icons-material/VisibilitySharp';
 import TableContainer from '@mui/material/TableContainer';
@@ -10,29 +13,40 @@ import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import { Pagination } from '@mui/material';
-import Review from 'components/Agents/Review/Form';
 import AgentReviews from 'components/Agents/Review';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import AgentInfo from 'components/Agents/Details';
 import CustomButton from 'components/Shared/Button';
 import Modal from 'components/Shared/Modal';
+import ReviewForm from 'components/Agents/Review/Form';
 
-interface AgentListProps {
-  agents: IAgent[];
-}
-
-const List: React.FC<AgentListProps> = ({ agents }) => {
+const List: React.FC<AgentListProps> = ({ agents, totalPages, currentPage, setCurrentPage }) => {
   const [showModal, setShowModal] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const agentsPerPage = 5;
+  const [showAgent, setShowAgent] = useState({
+    id: '',
+    firstName: '',
+    lastName: '',
+    agentLicense: '',
+    address: '',
+    aboutMe: '',
+    photoUrl: '',
+  });
+  const [showReviews, setShowReviews] = useState([{
+    id: 0,
+    rating: 0.0,
+    comment: ''
+  }])
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (agent: IAgent) => {
     setShowModal(true);
+    setShowAgent(agent);
   };
 
-  const handleReviewButtonClick = () => {
+  const handleReviewButtonClick = (reviews: IReview[], agent: IAgent) => {
     setShowReviewModal(true);
+    setShowReviews(reviews);
+    setShowAgent(agent);
   };
 
   const handleModalClose = () => {
@@ -69,32 +83,24 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
     },
   }));
 
-  const indexOfLastAgent = currentPage * agentsPerPage;
-  const indexOfFirstAgent = indexOfLastAgent - agentsPerPage;
-  const currentAgents = agents.slice(indexOfFirstAgent, indexOfLastAgent);
-  const totalPages = Math.ceil(agents.length / agentsPerPage);
-
   return (
-    <div>
+    <>
       <div className='agents'>
         {showModal && (
           <Modal showModal={showModal} onClose={handleModalClose}>
-            <AgentInfo agent={agents[1]} title='Agent Details' />
-            <AgentReviews agent={agents[1]} />
+            <AgentInfo agent={showAgent} title='Agent Details' />
+            <AgentReviews agent={showAgent} />
           </Modal>
         )}
 
         {showReviewModal && (
           <Modal showModal={showReviewModal} onClose={handleReviewModalClose}>
-            <Review review={agents[0]?.Reviews} agent={agents[1]} />
+            <ReviewForm review={showReviews} agent={showAgent} />
           </Modal>
         )}
 
         <TableContainer component={Paper}>
-          <Table
-            sx={{ minWidth: 700, marginBottom: '60px' }}
-            aria-label='customized table'
-          >
+          <Table sx={{ minWidth: 700 }} aria-label='customized table'>
             <TableHead>
               <TableRow>
                 <StyledTableCell>ID</StyledTableCell>
@@ -107,7 +113,7 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentAgents.map((agent) => (
+              {agents && agents.map((agent) => (
                 <StyledTableRow key={agent.id}>
                   <StyledTableCell component='th' scope='row'>
                     {agent.id}
@@ -128,16 +134,16 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
                     <CustomButton
                       className='btn btn-outline-info'
                       buttonText='Show'
-                      icon={<VisibilitySharpIcon />}
-                      onClick={handleButtonClick}
+                      icon={<VisibilitySharpIcon/>}
+                      onClick={() => handleButtonClick(agent)}
                     />
                   </StyledTableCell>
                   <StyledTableCell align='right'>
                     <CustomButton
                       className='btn btn-outline-warning'
                       buttonText='Reviews'
-                      icon={<ReviewsIcon />}
-                      onClick={handleReviewButtonClick}
+                      icon={<ReviewsIcon/>}
+                      onClick={() => handleReviewButtonClick(agent.Reviews|| [], agent)}
                     />
                   </StyledTableCell>
                 </StyledTableRow>
@@ -155,7 +161,7 @@ const List: React.FC<AgentListProps> = ({ agents }) => {
           className='pagination'
         />
       </div>
-    </div>
+    </>
   );
 };
 

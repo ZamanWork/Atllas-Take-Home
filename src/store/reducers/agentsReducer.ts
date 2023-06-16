@@ -1,14 +1,20 @@
 import {
   CREATE_AGENT_SUCCESS,
-  CREATE_AGENT_FAILURE
+  CREATE_AGENT_FAILURE,
+  LIST_AGENT_FAILURE,
+  LIST_AGENT_SUCCESS
 } from 'store/constants/agentConstants';
+import { AgentState } from 'types/Agent';
 
 const initialState = {
   agent: {},
   isLoading: false,
+  agents: [],
+  totalCount: 0,
+  limit: 0
 };
 
-export const agentsReducer = (state = initialState, action: { type: any; agent: any; error: any; }) => {
+export const agentsReducer = (state = initialState, action: AgentState) => {
   switch (action.type) {
     case CREATE_AGENT_SUCCESS:
       return {
@@ -17,6 +23,20 @@ export const agentsReducer = (state = initialState, action: { type: any; agent: 
       };
 
     case CREATE_AGENT_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+      };
+
+    case LIST_AGENT_SUCCESS:
+      return {
+        ...state,
+        agents: action.agents,
+        totalCount: action.totalPageCount,
+        limit: action.limit,
+      };
+
+    case LIST_AGENT_FAILURE:
       return {
         ...state,
         error: action.error,

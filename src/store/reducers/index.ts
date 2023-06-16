@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux';
-import {agentsReducer} from './agentsReducer';
+import { agentsReducer } from './agentsReducer';
+import { AgentState } from 'types/Agent';
+
+export interface RootState {
+  data: AgentState;
+}
 
 const rootReducer = combineReducers({
-  agent: agentsReducer,
+  data: agentsReducer,
 });
 
 export default rootReducer;

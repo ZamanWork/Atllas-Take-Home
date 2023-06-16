@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { FormValues, AgentFormProps } from 'types/Agent';
+import { FormValues } from 'types/Agent';
 import { Formik, Form } from 'formik';
 import InputField from 'components/Agents/Form/InputField';
 import { createAgent } from 'store/actions/createAgent';
 import {agentValidationSchema} from 'helpers/agentValidationSchema'
 
-const AddAgentForm: React.FC<AgentFormProps> = ({ agent }) => {
+const AddAgentForm: React.FC = () => {
 
   const initialValues: FormValues = {
     firstName: '',
