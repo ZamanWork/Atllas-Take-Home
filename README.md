@@ -20,8 +20,6 @@ The exercise requires [Node.js](https://nodejs.org/en/) and [Git](https://git-sc
 
 1. Then run `npm start` which should start both the server and the React client.
 
-**⚠️PLEASE MAKE SURE THAT YOU INSTALL GIT AND COMMIT ALL CHANGES ON TO MASTER⚠️**
-
 ## Technical Notes
 
 - The server is running with [nodemon](https://nodemon.io/) which will automatically restart for you when you modify and save a file.
@@ -33,34 +31,46 @@ The exercise requires [Node.js](https://nodejs.org/en/) and [Git](https://git-sc
 - We provided you with some basic styling for the agents, feel free to change this to reflect the acceptance criteria and make it more appealing.
 - Design the web application to be able a production amount of information.
 
-## Acceptance Criteria
+## Versioning
 
-### User Stories
+- Node version: v14.18.3
+- React version: 17.0.2
 
-1. Clicking the 'Join the team!' button displays a form allowing me to fill out all of the agent's information as per the data model (see `server/model.js`).
+## Tech stack
 
-1. Filling out the form will create a new agent in the database that persists on reload.
+The tech stack used to build the APP is:
 
-1. I can see a list for all the agents that are in the database.
+1. React - a JavaScript library for building user interfaces
+2. Formik- a popular form management library for React
+3. React-Toastify - a JavaScript library to add toast notifications to your application with ease and can also be used to set notifications and alerts.
+4. Material UI - an open-source React component library that implements Google's Material Design.
+5. Axios - allows us to communicate with APIs easily in our React apps.
+6. Express - to build a single page, multipage, and hybrid web application.
+7. Redux - an open-source JavaScript library used to manage application state
+8. React-spinner-loader - provides simple React.js spinner component which can be implemented for async wait operation before data load to the view
+9. Yup - is a JavaScript schema builder for value parsing and validation.
+10. Typescript - enables developers to add type safety to their projects.
+11. MUI Paginator - enables the user to select a specific page from a range of pages.
+12. SQLite - integrated with the application that accesses the database
+13. Sequelize - a Node. js-based Object Relational Mapper
+14. Joi - to create blueprints of Javascript objects that ensure that we process and ultimately accept accurate data
 
-1. The website is styled appropriately for perspective users to find an agent.
+## Functionality
 
-1. I can search by the Agents practice areas and have the page dynamically update.
+With the AgentApp, you can perform the following actions:
 
-1. I want to click on an Agents card in the list and be able to see more in-depth information about them.
-
-1. When viewing the enhanced view of the agents card I want to see reviews for that agent.
-
-1. Be able to give a persistent review on the agents card.
-
-## Going Above and Beyond the Requirements
-
-Given the time expectations of this exercise, we don't expect anyone to submit anything super fancy, but if you find yourself with extra time, any extra credit item(s) that showcase your unique strengths would be awesome! 🙌
-
-## Submitting the Assignment
-
-When you have finished the assignment, create a bundle of your work by running `npm run bundle` in the repo root.
-
-This generates a bundle file called `atllas-take-home-exercise` based on your local master branch. Return that file to us via e-mail, and we'll review your code within 1-2 days.
-
-Thank you and good luck! 🙏
+1. You can Add Agent from 'Join the Team' button
+   - Opens a FORMIK form in a modal
+   - Validates fields (Formik and Yup)
+   - Can add profile_url (optional)
+   - A toaster will notify the request success.
+2. List all the agents
+   - Can view all the agents in list
+   - Search the agents by their names or license
+   - Pagination at Backend
+3. Add anonymous reviews for the agents
+   - Can add reviews for the agents.
+   - A toaster will notify the request success.
+   - Validations are added to the form by using "yup"
+4. Can View all reviews of the agents
+   - By clicking on show button you can view the reviews associated with that agent.
