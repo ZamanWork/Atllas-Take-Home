@@ -3,7 +3,7 @@ import {
   CREATE_AGENT_FAILURE,
   CREATE_AGENT_SUCCESS
 } from "store/constants/agentConstants";
-import { SUCCESSFUL } from "store/constants/statusCodes";
+import { CREATED } from "store/constants/statusCodes";
 
 import { IAgent } from 'types/Agent';
 
@@ -20,12 +20,13 @@ const failure = (error: any) => ({
 export const createAgent = (agent: any, setShowModal: any, setLoader: any, toast: any) => (dispatch: any) => {
   createAgentApi(agent)
   .then((response) => {
-    const {data} = response;
-    if (response.status === SUCCESSFUL) {
+    const { data } = response;
+    if (response.status === CREATED) {
       dispatch(success(data.agent));
-      toast(data.message)
+      toast.success(data.message)
     } else {
       dispatch(failure(data.error));
+      toast.error(data.error)
     }
   })
   .catch((err) => {

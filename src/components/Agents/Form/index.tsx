@@ -6,8 +6,9 @@ import { Formik, Form } from 'formik';
 import InputField from 'components/Agents/Form/InputField';
 import { createAgent } from 'store/actions/agent/createAgent';
 import {agentValidationSchema} from 'helpers/agentValidationSchema'
+import { toast } from 'react-toastify';
 
-const AddAgentForm: React.FC<AddAgentFormProps> = ({ setShowModal, setLoader, toast }) => {
+const AddAgentForm: React.FC<AddAgentFormProps> = ({ setShowModal, setLoader }) => {
   const initialValues: FormValues = {
     firstName: '',
     lastName: '',

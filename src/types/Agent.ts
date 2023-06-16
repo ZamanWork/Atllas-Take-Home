@@ -31,6 +31,7 @@ export interface AgentListProps {
   totalPages: number;
   currentPage: AgentParams;
   setCurrentPage: Dispatch<SetStateAction<AgentParams>>;
+  setLoader: Dispatch<SetStateAction<boolean>>
 }
 
 export interface AgentState {
@@ -55,5 +56,4 @@ export interface SearchProps {
 export interface AddAgentFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
   setLoader: Dispatch<SetStateAction<boolean>>;
-  toast: Dispatch<SetStateAction<string>>
 }

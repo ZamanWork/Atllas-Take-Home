@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import Header from 'layout/header';
 import Footer from 'layout/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import "components/App/App.css";
 import Agents from "../Agents";
 import store from "store";

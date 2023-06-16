@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { AgentListProps, IAgent } from 'types/Agent';
-import { IReview } from 'types/Review';
 import Paper from '@mui/material/Paper';
 import VisibilitySharpIcon from '@mui/icons-material/VisibilitySharp';
 import TableContainer from '@mui/material/TableContainer';
@@ -22,7 +21,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RootState } from 'store/reducers';
 
-const List: React.FC<AgentListProps> = ({ agents, totalPages, setCurrentPage, currentPage }) => {
+const List: React.FC<AgentListProps> = ({ 
+  agents, 
+  totalPages, 
+  setCurrentPage, 
+  currentPage,
+  setLoader,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
 
@@ -103,7 +108,11 @@ const List: React.FC<AgentListProps> = ({ agents, totalPages, setCurrentPage, cu
 
         {showReviewModal && (
           <Modal showModal={showReviewModal} onClose={handleReviewModalClose}>
-            <ReviewForm agent={showAgent} />
+            <ReviewForm 
+              agent={showAgent} 
+              setLoader={setLoader} 
+              setShowReviewModal={setShowReviewModal} 
+            />
           </Modal>
         )}
 

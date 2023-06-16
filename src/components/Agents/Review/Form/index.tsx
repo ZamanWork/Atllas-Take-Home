@@ -1,20 +1,20 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { IReview } from 'types/Review';
+import { IReview, ReviewFormProps } from 'types/Review';
 import AgentInfo from 'components/Agents/Details';
-import { IAgent } from 'types/Agent';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { Dispatch } from 'redux';
 import { useDispatch } from 'react-redux';
 import { createReview } from 'store/actions/review/createReview';
+import { toast } from 'react-toastify';
 
-interface ReviewFormProps {
-  agent: IAgent;
-}
-
-const ReviewForm: React.FC<ReviewFormProps> = ({ agent }) => {
+const ReviewForm: React.FC<ReviewFormProps> = ({ 
+  agent, 
+  setLoader, 
+  setShowReviewModal,
+}) => {
   const initialValues = {
     rating: 0.0,
     comment: '',
@@ -23,14 +23,19 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ agent }) => {
   const dispatch: Dispatch<any> = useDispatch();
 
   const handleSubmit = (values: any) => {
+    setLoader(true);
     if(values.comment && values.rating){
       const rating = values.rating || 0;
       const payload: IReview = {
         rating: parseFloat(rating.toString()),
         comment: values.comment,
       };
-      console.log(values.comment)
-      dispatch(createReview(agent.id,payload));
+      dispatch(createReview(
+        agent.id,payload, 
+        setLoader, 
+        setShowReviewModal, 
+        toast
+      ));
     }
   };
 

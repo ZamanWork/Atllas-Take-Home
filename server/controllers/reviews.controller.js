@@ -12,9 +12,8 @@ async function addReviewToAgent(req, res) {
 
     const review = await reviewService.createReview(rating, comment, agent);
 
-    return res.status(201).json({ message: 'Review added successfully', review });
+    return res.status(201).json({ message: 'Review Added Successfully!', review });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 }

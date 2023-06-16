@@ -12,8 +12,7 @@ import { listAgents } from 'store/actions/agent/listAgents';
 import { RootState } from 'store/reducers';
 import AgentSearch from './Form/Search';
 import AppLoader from 'components/Shared/AppLoader';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 const Agents: FC = () => {
   const [agents, setAgents] = useState<IAgent[]>([]);
@@ -50,7 +49,7 @@ const Agents: FC = () => {
       <ToastContainer />
       {showModal && (
         <Modal showModal={showModal} onClose={() => setShowModal(false)}>
-          <AgentForm toast={toast} setShowModal={setShowModal} setLoader={setLoader} />
+          <AgentForm setShowModal={setShowModal} setLoader={setLoader} />
         </Modal>
       )}
 
@@ -78,6 +77,7 @@ const Agents: FC = () => {
         totalPages={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        setLoader={setLoader}
       />
     </div>
   );
