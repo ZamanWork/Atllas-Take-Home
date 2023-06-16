@@ -39,7 +39,8 @@ const Review: React.FC<{ agent: IAgent }> = ({ agent }) => {
               </Paper>
             </div>
           </div>
-        ))}
+        ))
+      }
     </div>
   );
 };
