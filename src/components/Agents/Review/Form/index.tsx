@@ -9,6 +9,7 @@ import { Dispatch } from 'redux';
 import { useDispatch } from 'react-redux';
 import { createReview } from 'store/actions/review/createReview';
 import { toast } from 'react-toastify';
+import { reviewValidationSchema } from 'helpers/validationSchema';
 
 const ReviewForm: React.FC<ReviewFormProps> = ({
   agent,
@@ -40,11 +41,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
     }
   };
 
-  const validationSchema = Yup.object().shape({
-    rating: Yup.number().required('Rating is required'),
-    comment: Yup.string().required('Comment is required'),
-  });
-
   const validateRating = (value: any) =>{
       let error;
       if (!value || value === 0) {
@@ -60,7 +56,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         <Formik
           initialValues={initialValues}
           onSubmit={handleSubmit}
-          validationSchema={validationSchema}
+          validationSchema={reviewValidationSchema}
         >
           {({ values, handleChange }) => (
             <Form>

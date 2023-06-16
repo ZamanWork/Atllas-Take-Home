@@ -9,3 +9,8 @@ export const agentValidationSchema = Yup.object().shape({
   aboutMe: Yup.string().required('About Me is required'),
   photoUrl: Yup.string().optional(),
 });
+
+export const reviewValidationSchema = Yup.object().shape({
+  rating: Yup.number().required('Rating is required'),
+  comment: Yup.string().required('Comment is required'),
+});
