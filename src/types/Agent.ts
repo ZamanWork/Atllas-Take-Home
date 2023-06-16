@@ -29,8 +29,8 @@ export interface AgentProps {
 export interface AgentListProps {
   agents: IAgent[];
   totalPages: number;
-  currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
+  currentPage: AgentParams;
+  setCurrentPage: Dispatch<SetStateAction<AgentParams>>;
 }
 
 export interface AgentState {
@@ -39,5 +39,14 @@ export interface AgentState {
   error: object;
   type: any;
   totalPageCount: number;
-  limit: number;
+}
+
+export interface AgentParams {
+  search?: string;
+  page?: number;
+}
+
+export interface SearchProps {
+  currentPage: AgentParams;
+  setCurrentPage: Dispatch<SetStateAction<AgentParams>>;
 }

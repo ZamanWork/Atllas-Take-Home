@@ -2,7 +2,7 @@ import {
   CREATE_AGENT_SUCCESS,
   CREATE_AGENT_FAILURE,
   LIST_AGENT_FAILURE,
-  LIST_AGENT_SUCCESS
+  LIST_AGENT_SUCCESS,
 } from 'store/constants/agentConstants';
 import { AgentState } from 'types/Agent';
 
@@ -11,7 +11,6 @@ const initialState = {
   isLoading: false,
   agents: [],
   totalCount: 0,
-  limit: 0
 };
 
 export const agentsReducer = (state = initialState, action: AgentState) => {
@@ -33,7 +32,6 @@ export const agentsReducer = (state = initialState, action: AgentState) => {
         ...state,
         agents: action.agents,
         totalCount: action.totalPageCount,
-        limit: action.limit,
       };
 
     case LIST_AGENT_FAILURE:

@@ -1,12 +1,12 @@
-import { IAgent } from "types/Agent";
-import { get, post, patch, Delete } from "../axios";
+import { AgentListProps, AgentParams, IAgent } from "types/Agent";
+import { get, post } from "../axios";
 
 const endpointURL = process.env.REACT_APP_BASE_URL;
 
-export function createAgentApi(body: IAgent) {
+export const createAgentApi = (body: IAgent) => {
   return post(`${endpointURL}/create-agent`, body);
 }
 
-export function listAgentsApi(page: number) {
-  return get(`${endpointURL}/agents?page=${page}`);
+export const listAgentsApi = (params: AgentParams) => {
+  return get(`${endpointURL}/agents?page=${params.page}&search=${params.search}`);
 }

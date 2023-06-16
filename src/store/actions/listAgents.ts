@@ -5,16 +5,14 @@ import {
 } from "store/constants/agentConstants";
 import { SUCCESSFUL } from "store/constants/statusCodes";
 
-import { IAgent } from 'types/Agent';
+import { AgentParams, IAgent } from 'types/Agent';
 
 const success = (
   agents: IAgent[], 
-  limit: number, 
   totalPageCount: number
   ) => ({
   type: LIST_AGENT_SUCCESS,
   agents,
-  limit,
   totalPageCount
 });
 
@@ -23,12 +21,12 @@ const failure = (error: any) => ({
   error,
 });
 
-export const listAgents = (page: number) => (dispatch: any) => {
-  listAgentsApi(page)
+export const listAgents = (params: AgentParams) => (dispatch: any) => {
+  listAgentsApi(params)
   .then((response) => {
     if (response.status === SUCCESSFUL) {
       const {data} = response;
-      dispatch(success(data.agents, data.limit, data.totalPageCount));
+      dispatch(success(data.agents, data.totalPageCount));
     } else {
       dispatch(failure(response));
     }

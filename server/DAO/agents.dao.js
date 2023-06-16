@@ -12,10 +12,10 @@ function getAllAgents(offset, limit) {
     offset: offset,
     limit: limit,
   });
-}
+} 
 
-function findAgents(searchQuery) {
-  return Agent.findAll({
+function agentsCount(searchQuery, offset) {
+  return Agent.count({
     where: {
       [Op.or]: [
         {
@@ -35,11 +35,44 @@ function findAgents(searchQuery) {
         }
       ],
     },
+    offset: offset
+  });
+}
+
+function findAgents(searchQuery, offset, limit) {
+  if (searchQuery) {
+    searchQuery = {[Op.or]: [
+      {
+        firstName: {
+          [Op.like]: `%${searchQuery}%`,
+        },
+      },
+      {
+        lastName: {
+          [Op.like]: `%${searchQuery}%`,
+        },
+      },
+      {
+        agentLicense: {
+          [Op.like]: `%${searchQuery}%`,
+        },
+      }
+    ],
+  }
+  } else {
+    searchQuery={}
+  }
+  return Agent.findAll({
+    include: Review,
+    where: searchQuery,
+    offset: offset,
+    limit: limit,
   });
 }
 
 module.exports = {
   createAgent,
   getAllAgents,
+  agentsCount,
   findAgents,
 }

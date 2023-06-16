@@ -1,22 +1,25 @@
 import type { FC } from 'react';
 import { useState, useEffect } from 'react';
-import { IAgent } from 'types/Agent';
+import { IAgent, AgentParams } from 'types/Agent';
 import AgentList from 'components/Agents/List';
 import AgentForm from 'components/Agents/Form';
 import Button from 'components/Shared/Button';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import Modal from 'components/Shared/Modal';
-import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { listAgents } from 'store/actions/listAgents';
 import { RootState } from 'store/reducers';
+import AgentSearch from './Form/Search';
 
 const Agents: FC = () => {
   const [agents, setAgents] = useState<IAgent[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<AgentParams>({
+    page: 1,
+    search: ""
+  });
 
   const handleButtonClick = () => {
     setShowModal(true);
@@ -35,7 +38,7 @@ const Agents: FC = () => {
   useEffect(() => {
     if (agentList.length > 0) 
       setAgents(agentList)
-  },[agentList])
+  },[agentList, totalCount])
 
   return (
     <div>
@@ -50,17 +53,7 @@ const Agents: FC = () => {
       </div>
 
       <div className='d-flex searchBar'>
-        <form className='d-flex'>
-          <input
-            className='form-control me-2'
-            type='search'
-            placeholder='Search'
-            aria-label='Search'
-          />
-          <button className='btn btn-outline-success' type='submit'>
-            <SearchIcon/>
-          </button>
-        </form>
+        <AgentSearch currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
         <Button
           className='btn btn-primary joinButton'
@@ -73,7 +66,7 @@ const Agents: FC = () => {
       <AgentList 
         agents={agents} 
         totalPages={totalCount} 
-        currentPage={currentPage}  
+        currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
     </div>
