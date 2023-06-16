@@ -36,7 +36,24 @@ async function listAgents(req, res) {
   }
 }
 
+async function getAgent(req, res) {
+  const agentId = req.params.id;
+  try {
+    const agent = await agentService.showAgent(agentId);
+
+    if (agent) {
+      res.status(200).send(agent);
+    } else {
+      res.status(404).send({message: "Agent not found"});
+    }
+  } catch (error) {
+    res.status(500).send({message: error.message});
+  }
+}
+
+
 module.exports = {
   addAgent,
   listAgents,
+  getAgent,
 };

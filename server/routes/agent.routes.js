@@ -7,5 +7,6 @@ const AgentCtrl = require('../controllers/agents.controller');
 
 router.post('/create-agent', validateAgent(agentSchema), asyncHandler(AgentCtrl.addAgent));
 router.get('/agents', asyncHandler(AgentCtrl.listAgents));
+router.get('/show-agent/:id', asyncHandler(AgentCtrl.getAgent));
 
 module.exports = router;

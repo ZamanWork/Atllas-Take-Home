@@ -6,6 +6,13 @@ function createAgent(agentObj, practices) {
   return Agent.create({...agentObj, practiceAreas: practices})
 }
 
+function showAgent(agentId) {
+  return Agent.findOne({
+    where: { id: agentId },
+    include: Review
+  })
+}
+
 function getAllAgents(offset, limit) {
   return Agent.findAll({
     include: Review,
@@ -63,16 +70,18 @@ function findAgents(searchQuery, offset, limit) {
     searchQuery={}
   }
   return Agent.findAll({
-    include: Review,
     where: searchQuery,
     offset: offset,
     limit: limit,
   });
 }
 
+
+
 module.exports = {
   createAgent,
   getAllAgents,
   agentsCount,
   findAgents,
+  showAgent
 }
