@@ -19,6 +19,7 @@ const AgentInfo: React.FC<AgentInfoProps> = ({ agent, title }) => {
             <img
               src={agent.photoUrl}
               alt='avatar'
+              width='120px'
               className='rounded-circle img-fluid'
             />
           )}

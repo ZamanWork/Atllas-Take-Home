@@ -19,7 +19,7 @@ export interface FormValues {
   address: string;
   practiceAreas?: string[];
   aboutMe: string;
-  pictureUrl?: string;
+  photoUrl?: string;
 }
 
 export interface AgentProps {

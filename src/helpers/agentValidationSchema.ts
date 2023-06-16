@@ -7,5 +7,5 @@ export const agentValidationSchema = Yup.object().shape({
   address: Yup.string().required('Address is required'),
   practiceAreas: Yup.string().required('Practice Areas is required'),
   aboutMe: Yup.string().required('About Me is required'),
-  pictureUrl: Yup.string().optional(),
+  photoUrl: Yup.string().optional(),
 });

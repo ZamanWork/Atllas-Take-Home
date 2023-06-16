@@ -10,9 +10,9 @@ import { useDispatch } from 'react-redux';
 import { createReview } from 'store/actions/review/createReview';
 import { toast } from 'react-toastify';
 
-const ReviewForm: React.FC<ReviewFormProps> = ({ 
-  agent, 
-  setLoader, 
+const ReviewForm: React.FC<ReviewFormProps> = ({
+  agent,
+  setLoader,
   setShowReviewModal,
 }) => {
   const initialValues = {
@@ -23,19 +23,20 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   const dispatch: Dispatch<any> = useDispatch();
 
   const handleSubmit = (values: any) => {
-    setLoader(true);
-    if(values.comment && values.rating){
+    if (values.comment && values.rating) {
+      setLoader(true);
       const rating = values.rating || 0;
       const payload: IReview = {
         rating: parseFloat(rating.toString()),
         comment: values.comment,
       };
       dispatch(createReview(
-        agent.id,payload, 
-        setLoader, 
-        setShowReviewModal, 
-        toast
-      ));
+        agent.id,
+        payload,
+        setLoader,
+        setShowReviewModal,
+        toast)
+      );
     }
   };
 
