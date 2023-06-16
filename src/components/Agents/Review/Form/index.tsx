@@ -6,14 +6,14 @@ import AgentInfo from 'components/Agents/Details';
 import { IAgent } from 'types/Agent';
 
 interface ReviewFormProps {
-  review: IReview;
+  review: IReview[];
   agent: IAgent;
 }
 
-const ReviewForm: React.FC<ReviewFormProps> = ({ review, agent }) => {
+const ReviewForm: React.FC<ReviewFormProps> = ({ agent }) => {
   const initialValues = {
-    rating: review.rating,
-    comment: review.comment,
+    rating: 0.0,
+    comment: '',
   };
 
   const validationSchema = Yup.object().shape({

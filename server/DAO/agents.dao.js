@@ -9,8 +9,8 @@ function createAgent(agentObj, practices) {
 function getAllAgents(offset, limit) {
   return Agent.findAll({
     include: Review,
-    offset,
-    limit,
+    offset: offset,
+    limit: limit,
   });
 }
 

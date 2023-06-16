@@ -1,5 +1,8 @@
 import React from 'react';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { IAgent } from 'types/Agent';
+
+import 'components/App/App.css'
 
 interface AgentInfoProps {
   agent: IAgent;
@@ -18,6 +21,9 @@ const AgentInfo: React.FC<AgentInfoProps> = ({ agent, title }) => {
               alt='avatar'
               className='rounded-circle img-fluid'
             />
+          )}
+          {!agent.photoUrl && (
+            <AccountCircleIcon sx={{fontSize: "150px", color: "#0F2853"}} />
           )}
           <h5 className='my-3'>
             {agent.firstName} {agent.lastName}
