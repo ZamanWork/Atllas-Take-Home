@@ -1,25 +1,24 @@
-const { Agent } = require("../models/agent");
-const Review = require("../models/review");
+const { Agent } = require('../models/agent');
+const Review = require('../models/review');
 const { Op } = require('sequelize');
 
 function createAgent(agentObj, practices) {
-  return Agent.create({...agentObj, practiceAreas: practices})
+  return Agent.create({ ...agentObj, practiceAreas: practices });
 }
 
 function showAgent(agentId) {
   return Agent.findOne({
+    include: Review,
     where: { id: agentId },
-    include: Review
-  })
+  });
 }
 
 function getAllAgents(offset, limit) {
   return Agent.findAll({
-    include: Review,
     offset: offset,
     limit: limit,
   });
-} 
+}
 
 function agentsCount(searchQuery, offset) {
   return Agent.count({
@@ -39,41 +38,42 @@ function agentsCount(searchQuery, offset) {
           agentLicense: {
             [Op.like]: `%${searchQuery}%`,
           },
-        }
+        },
       ],
     },
-    offset: offset
+    offset: offset,
   });
 }
 
 function findAgents(searchQuery, offset, limit) {
   if (searchQuery) {
-    searchQuery = {[Op.or]: [
-      {
-        firstName: {
-          [Op.like]: `%${searchQuery}%`,
+    searchQuery = {
+      [Op.or]: [
+        {
+          firstName: {
+            [Op.like]: `%${searchQuery}%`,
+          },
         },
-      },
-      {
-        lastName: {
-          [Op.like]: `%${searchQuery}%`,
+        {
+          lastName: {
+            [Op.like]: `%${searchQuery}%`,
+          },
         },
-      },
-      {
-        agentLicense: {
-          [Op.like]: `%${searchQuery}%`,
+        {
+          agentLicense: {
+            [Op.like]: `%${searchQuery}%`,
+          },
         },
-      }
-    ],
-  }
+      ],
+    };
   } else {
-    searchQuery={}
+    searchQuery = {};
   }
   return Agent.findAll({
     where: searchQuery,
     offset: offset,
     limit: limit,
-    order: [['createdAt', 'DESC']] 
+    order: [['createdAt', 'DESC']],
   });
 }
 
@@ -82,5 +82,5 @@ module.exports = {
   getAllAgents,
   agentsCount,
   findAgents,
-  showAgent
-}
+  showAgent,
+};
