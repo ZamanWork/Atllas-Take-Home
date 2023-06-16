@@ -17,17 +17,22 @@ const failure = (error: any) => ({
   error,
 });
 
-export const createAgent = (agent: any) => (dispatch: any) => {
+export const createAgent = (agent: any, setShowModal: any, setLoader: any, toast: any) => (dispatch: any) => {
   createAgentApi(agent)
   .then((response) => {
+    const {data} = response;
     if (response.status === SUCCESSFUL) {
-      dispatch(success(response.data.agent));
+      dispatch(success(data.agent));
+      toast(data.message)
     } else {
-      dispatch(failure(response));
+      dispatch(failure(data.error));
     }
   })
   .catch((err) => {
     dispatch(failure(err));
+  }).finally(() => {
+    setShowModal(false);
+    setLoader(false);
   })
 };
 

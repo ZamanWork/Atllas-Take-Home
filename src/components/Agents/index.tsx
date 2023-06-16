@@ -8,14 +8,17 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import Modal from 'components/Shared/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
-
 import { listAgents } from 'store/actions/listAgents';
 import { RootState } from 'store/reducers';
 import AgentSearch from './Form/Search';
+import AppLoader from 'components/Shared/AppLoader';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Agents: FC = () => {
   const [agents, setAgents] = useState<IAgent[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [loader, setLoader] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<AgentParams>({
     page: 1,
     search: ""
@@ -29,10 +32,12 @@ const Agents: FC = () => {
 
   const agentList = useSelector<RootState, any>((state) => state.data.agents);
   const { totalCount } = useSelector<RootState, any>((state) => state.data);
+  const { agent } = useSelector<RootState, any>((state) => state.data);
 
   useEffect(() => {
-    dispatch(listAgents(currentPage))
-  },[currentPage])
+    setLoader(true);
+    dispatch(listAgents(currentPage, setLoader))
+  },[currentPage, agent])
 
 
   useEffect(() => {
@@ -42,9 +47,11 @@ const Agents: FC = () => {
 
   return (
     <div>
+      {loader && <AppLoader />}
+      <ToastContainer />
       {showModal && (
         <Modal showModal={showModal} onClose={() => setShowModal(false)}>
-          <AgentForm />
+          <AgentForm toast={toast} setShowModal={setShowModal} setLoader={setLoader} />
         </Modal>
       )}
 
@@ -53,7 +60,11 @@ const Agents: FC = () => {
       </div>
 
       <div className='d-flex searchBar'>
-        <AgentSearch currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        <AgentSearch 
+          currentPage={currentPage} 
+          setCurrentPage={setCurrentPage} 
+          setLoader={setLoader}
+        />
 
         <Button
           className='btn btn-primary joinButton'

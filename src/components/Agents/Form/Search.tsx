@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { 
   Formik, 
@@ -13,17 +13,23 @@ import { listAgents } from 'store/actions/listAgents';
 import SearchIcon from '@mui/icons-material/Search';
 import { AgentParams, SearchProps } from 'types/Agent';
 
-const AgentSearch: React.FC<SearchProps> = ({ currentPage, setCurrentPage }) => {
+const AgentSearch: React.FC<SearchProps> = ({ currentPage, setCurrentPage, setLoader }) => {
   const dispatch: Dispatch<any> = useDispatch();
 
   const handleSubmit = (values: AgentParams) => {
+    setLoader(true);
     values.page=currentPage.page;
-    dispatch(listAgents(values));
+    dispatch(listAgents(values, setLoader));
     setCurrentPage(values);
   };
 
+  const initialValues = {
+    page: 1,
+    search: '',
+  };
+
   return (
-    <Formik initialValues={{}} onSubmit={handleSubmit}>
+    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {({ handleSubmit }: FormikProps<string>) => (
         <Form className='d-flex' onSubmit={handleSubmit}>
           <Field name="search">

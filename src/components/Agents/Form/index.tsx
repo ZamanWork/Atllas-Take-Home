@@ -1,14 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { FormValues } from 'types/Agent';
+import { AddAgentFormProps, FormValues } from 'types/Agent';
 import { Formik, Form } from 'formik';
 import InputField from 'components/Agents/Form/InputField';
 import { createAgent } from 'store/actions/createAgent';
-import {agentValidationSchema} from 'helpers/agentValidationSchema'
+import {agentValidationSchema} from 'helpers/agentValidationSchema';
 
-const AddAgentForm: React.FC = () => {
-
+const AddAgentForm: React.FC<AddAgentFormProps> = ({ setShowModal, setLoader, toast }) => {
   const initialValues: FormValues = {
     firstName: '',
     lastName: '',
@@ -22,12 +21,18 @@ const AddAgentForm: React.FC = () => {
   const dispatch: Dispatch<any> = useDispatch();
 
   const handleSubmit = (values: any) => {
+    setLoader(true);
     const payload = { ...values };
     if (payload.pictureUrl === '') {
       delete payload.pictureUrl;
     }
     const practices = payload.practiceAreas.split(', ');
-    dispatch(createAgent({...payload, practiceAreas: practices}));
+    dispatch(createAgent(
+      {...payload, practiceAreas: practices}, 
+      setShowModal,
+      setLoader,
+      toast
+    ));
   };
 
   return (

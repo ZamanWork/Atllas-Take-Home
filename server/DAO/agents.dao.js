@@ -73,10 +73,9 @@ function findAgents(searchQuery, offset, limit) {
     where: searchQuery,
     offset: offset,
     limit: limit,
+    order: [['createdAt', 'DESC']] 
   });
 }
-
-
 
 module.exports = {
   createAgent,

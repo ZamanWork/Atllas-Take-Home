@@ -49,4 +49,11 @@ export interface AgentParams {
 export interface SearchProps {
   currentPage: AgentParams;
   setCurrentPage: Dispatch<SetStateAction<AgentParams>>;
+  setLoader: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface AddAgentFormProps {
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+  setLoader: Dispatch<SetStateAction<boolean>>;
+  toast: Dispatch<SetStateAction<string>>
 }

@@ -21,7 +21,7 @@ const failure = (error: any) => ({
   error,
 });
 
-export const listAgents = (params: AgentParams) => (dispatch: any) => {
+export const listAgents = (params: AgentParams, setLoader: any) => (dispatch: any) => {
   listAgentsApi(params)
   .then((response) => {
     if (response.status === SUCCESSFUL) {
@@ -33,5 +33,5 @@ export const listAgents = (params: AgentParams) => (dispatch: any) => {
   })
   .catch((err) => {
     dispatch(failure(err));
-  })
+  }).finally(() => setLoader && setLoader(false));
 };

@@ -6,7 +6,7 @@ async function addAgent(req, res) {
   const newAgent = req.validatedData;
 
   const data = await agentService.createAgent(newAgent, practices);
-  res.send({message: "Successfully created an agent", agent: data});
+  res.send({message: "Agent Created Successfully!", agent: data});
 }
 
 async function listAgents(req, res) {

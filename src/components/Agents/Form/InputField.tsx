@@ -2,7 +2,6 @@ import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 
 interface AgentFormProps {
-  // agent: IAgent;
   labelText: string;
   inputName: string;
   type?: string;
@@ -10,7 +9,6 @@ interface AgentFormProps {
 
 const InputField: React.FC<AgentFormProps> = (props) => {
   const {
-    // agent,
     labelText,
     inputName,
     type='text'
