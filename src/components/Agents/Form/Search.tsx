@@ -36,7 +36,7 @@ const AgentSearch: React.FC<SearchProps> = ({ currentPage, setCurrentPage, setLo
             {({ field }: FieldProps<AgentParams['search']>) => (
               <TextField
                 {...field}
-                label="Search Agent by Name/Agent license"
+                label="Search Agent by Name/Agent License/ Practice Areas"
                 className='form-control me-2'
                 type='search'
                 sx= {{minWidth: 500}}

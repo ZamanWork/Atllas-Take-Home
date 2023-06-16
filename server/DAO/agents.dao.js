@@ -39,6 +39,11 @@ function agentsCount(searchQuery, offset) {
             [Op.like]: `%${searchQuery}%`,
           },
         },
+        {
+          agentLicense: {
+            [Op.like]: `%${searchQuery}%`,
+          },
+        }
       ],
     },
     offset: offset,
@@ -64,6 +69,11 @@ function findAgents(searchQuery, offset, limit) {
             [Op.like]: `%${searchQuery}%`,
           },
         },
+        {
+          practiceAreas: {
+            [Op.like]: `%${searchQuery}%`,
+          },
+        }
       ],
     };
   } else {
